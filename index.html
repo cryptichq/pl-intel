@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PL Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #080b10;
+  --surface: #0d1117;
+  --card:    #131920;
+  --border:  rgba(255,255,255,0.06);
+  --green:   #00e676;
+  --gold:    #ffd740;
+  --red:     #ff5252;
+  --blue:    #448aff;
+  --text:    #e8eaf0;
+  --muted:   #5a6270;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Barlow', sans-serif;
+  --font-cond:    'Barlow Condensed', sans-serif;
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ background:var(--bg); color:var(--text); font-family:var(--font-body); font-size:14px; min-height:100vh; }
+
+/* Animated background */
+body::before{
+  content:''; position:fixed; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(0,230,118,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 80%, rgba(68,138,255,0.04) 0%, transparent 60%);
+  pointer-events:none;
+}
+
+.app{ position:relative; z-index:1; max-width:1200px; margin:0 auto; padding:0 20px 80px; }
+
+/* Header */
+.header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:28px 0 24px; border-bottom:1px solid var(--border);
+  margin-bottom:0;
+}
+.logo{ display:flex; align-items:baseline; gap:8px; }
+.logo-text{ font-family:var(--font-display); font-size:42px; letter-spacing:3px; color:#fff; line-height:1; }
+.logo-accent{ color:var(--green); }
+.logo-sub{ font-family:var(--font-cond); font-size:12px; color:var(--muted); letter-spacing:3px; text-transform:uppercase; }
+.header-meta{ text-align:right; color:var(--muted); font-size:11px; line-height:2; }
+.live-dot{ display:inline-block; width:6px; height:6px; background:var(--green); border-radius:50%; margin-right:5px; animation:pulse 2s infinite; }
+@keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* Nav tabs */
+.nav{
+  display:flex; gap:2px; padding:20px 0 0; border-bottom:1px solid var(--border);
+  margin-bottom:32px; overflow-x:auto;
+}
+.tab{
+  font-family:var(--font-cond); font-size:13px; font-weight:600;
+  letter-spacing:1.5px; text-transform:uppercase; padding:10px 20px;
+  color:var(--muted); cursor:pointer; border:none; background:transparent;
+  border-bottom:2px solid transparent; transition:all 0.2s; white-space:nowrap;
+}
+.tab:hover{ color:var(--text); }
+.tab.active{ color:var(--green); border-bottom-color:var(--green); }
+.tab-badge{
+  display:inline-block; background:var(--green); color:#000;
+  font-size:9px; font-weight:700; padding:1px 5px; border-radius:8px;
+  margin-left:6px; vertical-align:middle;
+}
+
+/* Tab content */
+.tab-content{ display:none; }
+.tab-content.active{ display:block; }
+
+/* Date header */
+.date-header{
+  font-family:var(--font-display); font-size:13px; letter-spacing:3px;
+  color:var(--muted); padding:8px 0 12px; margin-top:24px;
+  border-bottom:1px solid var(--border); margin-bottom:12px;
+}
+
+/* Match card */
+.match-card{
+  background:var(--card); border:1px solid var(--border); border-radius:12px;
+  margin-bottom:10px; overflow:hidden; transition:border-color 0.2s;
+}
+.match-card:hover{ border-color:rgba(255,255,255,0.12); }
+.match-head{
+  display:grid; grid-template-columns:1fr auto 1fr;
+  align-items:center; padding:16px 20px 12px; gap:12px;
+}
+.team-name{ font-size:16px; font-weight:500; color:#fff; }
+.team-name.right{ text-align:right; }
+.vs-col{ text-align:center; }
+.vs{ font-family:var(--font-display); font-size:18px; color:var(--muted); letter-spacing:2px; display:block; }
+.elo-row{ font-size:10px; color:var(--muted); margin-top:2px; }
+.inj-row{ padding:0 20px 8px; }
+.inj-badge{ background:rgba(255,82,82,0.12); color:#ff7070; border:1px solid rgba(255,82,82,0.2); border-radius:20px; padding:2px 10px; font-size:11px; margin-right:6px; }
+.odds-row{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--border); border-top:1px solid var(--border); }
+.odds-cell{ background:var(--surface); padding:12px; text-align:center; }
+.odds-cell.best{ background:rgba(0,230,118,0.07); border-top:2px solid rgba(0,230,118,0.4); }
+.odds-label{ font-size:10px; color:var(--muted); letter-spacing:0.5px; text-transform:uppercase; margin-bottom:3px; }
+.odds-prob{ font-family:var(--font-display); font-size:26px; color:#fff; line-height:1; }
+.odds-cell.best .odds-prob{ color:var(--green); }
+.odds-price{ font-size:11px; color:var(--muted); margin-top:2px; }
+.markets-row{ display:flex; gap:6px; padding:10px 16px; border-top:1px solid var(--border); flex-wrap:wrap; }
+.mkt{ display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:4px 12px; font-size:12px; }
+.mkt span{ color:var(--muted); }
+.mkt b{ color:#fff; font-weight:500; }
+.mkt-hot{ border-color:rgba(0,230,118,0.25); background:rgba(0,230,118,0.05); }
+.mkt-hot b{ color:var(--green); }
+
+/* Value finder */
+.value-card{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 20px; margin-bottom:10px; }
+.value-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+.v-fixture{ font-size:15px; font-weight:500; color:#fff; }
+.v-date{ font-size:11px; color:var(--muted); margin-top:2px; }
+.ev-badge{ font-family:var(--font-cond); font-size:15px; font-weight:700; padding:4px 12px; border-radius:20px; }
+.ev-pos{ background:rgba(0,230,118,0.12); color:var(--green); }
+.ev-neg{ background:rgba(255,82,82,0.12); color:var(--red); }
+.v-market{ font-family:var(--font-display); font-size:20px; color:var(--gold); letter-spacing:1px; margin-bottom:12px; }
+.v-compare{ display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+.v-item{ text-align:center; }
+.v-label{ font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:3px; }
+.v-val{ font-family:var(--font-display); font-size:24px; }
+.v-val.model{ color:var(--green); }
+.v-val.bookie{ color:#fff; }
+.v-val.edge{ color:var(--gold); }
+.v-arrow{ font-size:18px; color:var(--muted); }
+
+/* Player cards */
+.player-section-title{ font-family:var(--font-display); font-size:13px; letter-spacing:3px; color:var(--muted); margin-bottom:16px; text-transform:uppercase; }
+.player-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; margin-bottom:16px; }
+.player-card{ background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px; }
+.player-card.card-risk{ border-color:rgba(255,82,82,0.15); }
+.p-name{ font-size:14px; font-weight:500; color:#fff; margin-bottom:2px; }
+.p-team{ font-size:11px; color:var(--muted); margin-bottom:4px; }
+.p-fixture{ font-size:10px; color:var(--muted); margin-bottom:10px; opacity:0.7; }
+.p-stats{ display:flex; gap:8px; }
+.p-stat{ text-align:center; flex:1; }
+.p-stat-val{ font-family:var(--font-display); font-size:18px; }
+.p-stat-lbl{ font-size:9px; color:var(--muted); text-transform:uppercase; margin-top:1px; }
+.prob-high{ color:var(--green); }
+.prob-mid{ color:var(--gold); }
+.prob-low{ color:var(--muted); }
+
+/* Bet suggestions */
+.bet-group-title{
+  font-family:var(--font-cond); font-size:13px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase; padding:8px 14px;
+  border-radius:6px; margin:24px 0 12px; display:inline-block;
+}
+.bet-group-title.bet-high{ background:rgba(0,230,118,0.1); color:var(--green); }
+.bet-group-title.bet-med{ background:rgba(255,215,64,0.1); color:var(--gold); }
+.bet-card{ background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 20px; margin-bottom:8px; }
+.bet-card.bet-high{ border-left:3px solid var(--green); }
+.bet-card.bet-med{ border-left:3px solid var(--gold); }
+.bet-top{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; }
+.bet-name{ font-size:16px; font-weight:500; color:#fff; }
+.bet-fixture{ font-size:11px; color:var(--muted); margin-top:3px; }
+.bet-right{ text-align:right; }
+.stars{ font-size:16px; color:var(--gold); display:block; margin-bottom:3px; }
+.star-empty{ opacity:0.25; }
+.bet-market{ font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+.bet-stats{ display:flex; gap:16px; }
+.bs-item{ text-align:center; }
+.bs-val{ font-family:var(--font-display); font-size:22px; color:var(--green); }
+.bs-lbl{ font-size:10px; color:var(--muted); text-transform:uppercase; }
+
+/* Disclaimer */
+.disclaimer{
+  background:rgba(255,215,64,0.05); border:1px solid rgba(255,215,64,0.15);
+  border-radius:8px; padding:12px 16px; margin-bottom:24px;
+  font-size:12px; color:var(--muted); line-height:1.8;
+}
+.disclaimer strong{ color:var(--gold); }
+
+.empty-state{ color:var(--muted); font-style:italic; padding:40px; text-align:center; line-height:2; }
+.footer{ text-align:center; color:var(--muted); font-size:11px; margin-top:60px; padding-top:24px; border-top:1px solid var(--border); line-height:2.5; }
+
+@media(max-width:640px){
+  .match-head{ grid-template-columns:1fr auto 1fr; }
+  .team-name{ font-size:13px; }
+  .player-grid{ grid-template-columns:1fr 1fr; }
+  .logo-text{ font-size:32px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="header">
+  <div class="logo">
+    <div>
+      <div class="logo-text">PL <span class="logo-accent">INTEL</span></div>
+      <div class="logo-sub">Neural Network · Betting Intelligence</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <span class="live-dot"></span>Updated 03 May 2026, 16:38<br>
+    32 fixtures · 24 bet suggestions
+  </div>
+</div>
+
+<nav class="nav">
+  <button class="tab active" onclick="showTab('predictions',this)">
+    Predictions <span class="tab-badge">32</span>
+  </button>
+  <button class="tab" onclick="showTab('value',this)">
+    Value Finder <span class="tab-badge">0</span>
+  </button>
+  <button class="tab" onclick="showTab('players',this)">
+    Player Picks <span class="tab-badge">850</span>
+  </button>
+  <button class="tab" onclick="showTab('bets',this)">
+    Bet Suggestions
+    <span class="tab-badge" style="background:#00e676">2H 14M</span>
+  </button>
+</nav>
+
+<!-- TAB 1: PREDICTIONS -->
+<div id="predictions" class="tab-content active">
+  <div class="date-header">Sunday 03 May</div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Bournemouth</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1550 — 1548</div></div>
+                <div class="team-name right">Crystal Palace</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">34%</div><div class="odds-price">2.95</div></div>
+                <div class="odds-cell best"><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.91</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">32%</div><div class="odds-price">3.15</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>51%</b></div>
+                <div class="mkt "><span>BTTS</span><b>50%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Man United</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1683 — 1776</div></div>
+                <div class="team-name right">Liverpool</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Liverpool 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">24%</div><div class="odds-price">4.11</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.98</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">42%</div><div class="odds-price">2.37</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>48%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Aston Villa</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1458 — 1685</div></div>
+                <div class="team-name right">Tottenham</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">27%</div><div class="odds-price">3.70</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.95</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">39%</div><div class="odds-price">2.56</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>49%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div><div class="date-header">Monday 04 May</div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Everton</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1694 — 1822</div></div>
+                <div class="team-name right">Man City</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">22%</div><div class="odds-price">4.53</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">33%</div><div class="odds-price">3.02</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">45%</div><div class="odds-price">2.23</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>48%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div><div class="date-header">Saturday 09 May</div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Liverpool</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1776 — 1768</div></div>
+                <div class="team-name right">Chelsea</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Liverpool 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">44%</div><div class="odds-price">2.26</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">33%</div><div class="odds-price">3.07</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">23%</div><div class="odds-price">4.32</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>55%</b></div>
+                <div class="mkt "><span>BTTS</span><b>47%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Sunderland</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1502 — 1683</div></div>
+                <div class="team-name right">Man United</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Sunderland 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">23%</div><div class="odds-price">4.39</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">33%</div><div class="odds-price">2.99</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">44%</div><div class="odds-price">2.29</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>48%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Brighton</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1568 — 1395</div></div>
+                <div class="team-name right">Wolves</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">39%</div><div class="odds-price">2.55</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.94</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">27%</div><div class="odds-price">3.73</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>52%</b></div>
+                <div class="mkt "><span>BTTS</span><b>49%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Fulham</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1444 — 1550</div></div>
+                <div class="team-name right">Bournemouth</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Fulham 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">31%</div><div class="odds-price">3.20</div></div>
+                <div class="odds-cell best"><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.90</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">34%</div><div class="odds-price">2.91</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>49%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Man City</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1822 — 1543</div></div>
+                <div class="team-name right">Brentford</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">54%</div><div class="odds-price">1.84</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">30%</div><div class="odds-price">3.37</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">16%</div><div class="odds-price">6.28</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>60%</b></div>
+                <div class="mkt "><span>BTTS</span><b>43%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div><div class="date-header">Sunday 10 May</div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Crystal Palace</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1548 — 1694</div></div>
+                <div class="team-name right">Everton</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">28%</div><div class="odds-price">3.59</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.94</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">38%</div><div class="odds-price">2.62</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>49%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Burnley</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1394 — 1458</div></div>
+                <div class="team-name right">Aston Villa</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">26%</div><div class="odds-price">3.87</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.95</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">40%</div><div class="odds-price">2.48</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>48%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">West Ham</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1498 — 1753</div></div>
+                <div class="team-name right">Arsenal</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Arsenal 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">21%</div><div class="odds-price">4.70</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">33%</div><div class="odds-price">3.03</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">46%</div><div class="odds-price">2.19</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>47%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div><div class="date-header">Monday 11 May</div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Tottenham</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1685 — 1428</div></div>
+                <div class="team-name right">Leeds</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Leeds 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">50%</div><div class="odds-price">2.02</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">32%</div><div class="odds-price">3.17</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">19%</div><div class="odds-price">5.30</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>57%</b></div>
+                <div class="mkt "><span>BTTS</span><b>45%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div><div class="date-header">Wednesday 13 May</div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Man City</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1822 — 1548</div></div>
+                <div class="team-name right">Crystal Palace</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">55%</div><div class="odds-price">1.81</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">29%</div><div class="odds-price">3.40</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">15%</div><div class="odds-price">6.52</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt mkt-hot"><span>Over 2.5</span><b>60%</b></div>
+                <div class="mkt "><span>BTTS</span><b>43%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div><div class="date-header">Sunday 17 May</div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Aston Villa</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1458 — 1776</div></div>
+                <div class="team-name right">Liverpool</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Liverpool 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">23%</div><div class="odds-price">4.38</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">33%</div><div class="odds-price">3.01</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">44%</div><div class="odds-price">2.28</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>48%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Brentford</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1543 — 1548</div></div>
+                <div class="team-name right">Crystal Palace</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">34%</div><div class="odds-price">2.98</div></div>
+                <div class="odds-cell best"><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.90</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">32%</div><div class="odds-price">3.13</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>50%</b></div>
+                <div class="mkt "><span>BTTS</span><b>50%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Everton</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1694 — 1502</div></div>
+                <div class="team-name right">Sunderland</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Sunderland 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">48%</div><div class="odds-price">2.07</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">32%</div><div class="odds-price">3.12</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">20%</div><div class="odds-price">5.08</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>57%</b></div>
+                <div class="mkt "><span>BTTS</span><b>45%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Leeds</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1428 — 1568</div></div>
+                <div class="team-name right">Brighton</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Leeds 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">26%</div><div class="odds-price">3.79</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.94</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">40%</div><div class="odds-price">2.53</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>48%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Wolves</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1395 — 1444</div></div>
+                <div class="team-name right">Fulham</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Fulham 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">30%</div><div class="odds-price">3.28</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">35%</div><div class="odds-price">2.89</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">35%</div><div class="odds-price">2.86</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>49%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Newcastle</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1493 — 1498</div></div>
+                <div class="team-name right">West Ham</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">39%</div><div class="odds-price">2.58</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.96</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">28%</div><div class="odds-price">3.64</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>53%</b></div>
+                <div class="mkt "><span>BTTS</span><b>49%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div><div class="date-header">Monday 18 May</div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Arsenal</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1753 — 1394</div></div>
+                <div class="team-name right">Burnley</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Arsenal 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">58%</div><div class="odds-price">1.72</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">28%</div><div class="odds-price">3.52</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">14%</div><div class="odds-price">7.40</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt mkt-hot"><span>Over 2.5</span><b>61%</b></div>
+                <div class="mkt "><span>BTTS</span><b>42%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div><div class="date-header">Tuesday 19 May</div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Bournemouth</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1550 — 1822</div></div>
+                <div class="team-name right">Man City</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">20%</div><div class="odds-price">4.96</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">33%</div><div class="odds-price">3.06</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">47%</div><div class="odds-price">2.12</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>47%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Chelsea</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1768 — 1685</div></div>
+                <div class="team-name right">Tottenham</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">35%</div><div class="odds-price">2.84</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.94</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">31%</div><div class="odds-price">3.25</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>52%</b></div>
+                <div class="mkt "><span>BTTS</span><b>49%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div><div class="date-header">Sunday 24 May</div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Sunderland</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1502 — 1768</div></div>
+                <div class="team-name right">Chelsea</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Sunderland 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">21%</div><div class="odds-price">4.81</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">33%</div><div class="odds-price">3.04</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">46%</div><div class="odds-price">2.16</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>47%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Brighton</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1568 — 1683</div></div>
+                <div class="team-name right">Man United</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">27%</div><div class="odds-price">3.65</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.93</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">38%</div><div class="odds-price">2.60</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>48%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Crystal Palace</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1548 — 1753</div></div>
+                <div class="team-name right">Arsenal</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Arsenal 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">21%</div><div class="odds-price">4.76</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">33%</div><div class="odds-price">3.04</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">46%</div><div class="odds-price">2.17</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>47%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Burnley</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1394 — 1395</div></div>
+                <div class="team-name right">Wolves</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">30%</div><div class="odds-price">3.28</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">35%</div><div class="odds-price">2.90</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">35%</div><div class="odds-price">2.85</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>49%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Fulham</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1444 — 1493</div></div>
+                <div class="team-name right">Newcastle</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Fulham 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell "><div class="odds-label">Home Win</div><div class="odds-prob">28%</div><div class="odds-price">3.58</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.93</div></div>
+                <div class="odds-cell best"><div class="odds-label">Away Win</div><div class="odds-prob">38%</div><div class="odds-price">2.64</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>49%</b></div>
+                <div class="mkt "><span>BTTS</span><b>51%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Liverpool</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1776 — 1543</div></div>
+                <div class="team-name right">Brentford</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Liverpool 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">52%</div><div class="odds-price">1.91</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">30%</div><div class="odds-price">3.28</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">17%</div><div class="odds-price">5.84</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>59%</b></div>
+                <div class="mkt "><span>BTTS</span><b>44%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Man City</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1822 — 1458</div></div>
+                <div class="team-name right">Aston Villa</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">53%</div><div class="odds-price">1.90</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">30%</div><div class="odds-price">3.30</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">17%</div><div class="odds-price">5.85</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>59%</b></div>
+                <div class="mkt "><span>BTTS</span><b>44%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">Tottenham</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1685 — 1694</div></div>
+                <div class="team-name right">Everton</div>
+              </div>
+              
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">41%</div><div class="odds-price">2.42</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">33%</div><div class="odds-price">3.00</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">25%</div><div class="odds-price">3.95</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>54%</b></div>
+                <div class="mkt "><span>BTTS</span><b>48%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+            <div class="match-card">
+              <div class="match-head">
+                <div class="team-name">West Ham</div>
+                <div class="vs-col"><span class="vs">VS</span><div class="elo-row">1498 — 1428</div></div>
+                <div class="team-name right">Leeds</div>
+              </div>
+              <div class="inj-row"><span class="inj-badge">⚠ Leeds 1 out</span></div>
+              <div class="odds-row">
+                <div class="odds-cell best"><div class="odds-label">Home Win</div><div class="odds-prob">38%</div><div class="odds-price">2.65</div></div>
+                <div class="odds-cell "><div class="odds-label">Draw</div><div class="odds-prob">34%</div><div class="odds-price">2.92</div></div>
+                <div class="odds-cell "><div class="odds-label">Away Win</div><div class="odds-prob">28%</div><div class="odds-price">3.57</div></div>
+              </div>
+              <div class="markets-row">
+                <div class="mkt "><span>Over 2.5</span><b>52%</b></div>
+                <div class="mkt "><span>BTTS</span><b>49%</b></div>
+                <div class="mkt"><span>Corners</span><b>0.0</b></div>
+                <div class="mkt"><span>Cards</span><b>0.0</b></div>
+              </div>
+            </div>
+</div>
+
+<!-- TAB 2: VALUE FINDER -->
+<div id="value" class="tab-content">
+  <div class="disclaimer">
+    <strong>Note:</strong> Value bets show where our model's probability exceeds the bookmaker's implied probability.
+    Edges over 50% EV may indicate bad bookmaker data — focus on edges of 10-30%.
+    Always gamble responsibly. 18+ only.
+  </div>
+  <div class="empty-state">Run valuefinder.py and save results to load here.<br>Or run site.py after valuefinder.py</div>
+</div>
+
+<!-- TAB 3: PLAYER PICKS -->
+<div id="players" class="tab-content">
+  <div class="player-section-title">Top Scorer Candidates</div><div class="player-grid">
+        <div class="player-card">
+          <div class="p-name">Erling Haaland</div>
+          <div class="p-team">Man City · FWD</div>
+          <div class="p-fixture">Man City vs Brentford</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-mid">58%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">22%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">6%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Erling Haaland</div>
+          <div class="p-team">Man City · FWD</div>
+          <div class="p-fixture">Man City vs Crystal Palace</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-mid">57%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">22%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">6%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Erling Haaland</div>
+          <div class="p-team">Man City · FWD</div>
+          <div class="p-fixture">Man City vs Aston Villa</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-mid">55%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">21%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">6%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Junior Kroupi</div>
+          <div class="p-team">Bournemouth · FWD</div>
+          <div class="p-fixture">Bournemouth vs Crystal Palace</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-mid">54%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">1%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">26%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Junior Kroupi</div>
+          <div class="p-team">Bournemouth · FWD</div>
+          <div class="p-fixture">Bournemouth vs Man City</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-mid">51%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">1%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">27%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Erling Haaland</div>
+          <div class="p-team">Man City · FWD</div>
+          <div class="p-fixture">Bournemouth vs Man City</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">50%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">18%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">7%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Erling Haaland</div>
+          <div class="p-team">Man City · FWD</div>
+          <div class="p-fixture">Everton vs Man City</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">49%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">18%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">7%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Igor Thiago Nascimento Rodrigues</div>
+          <div class="p-team">Brentford · FWD</div>
+          <div class="p-fixture">Brentford vs Crystal Palace</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">49%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">3%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">18%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Viktor Gyökeres</div>
+          <div class="p-team">Arsenal · FWD</div>
+          <div class="p-fixture">Arsenal vs Burnley</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">49%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">5%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">18%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Junior Kroupi</div>
+          <div class="p-team">Bournemouth · FWD</div>
+          <div class="p-fixture">Fulham vs Bournemouth</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">48%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">1%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">29%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Norberto Bercique Gomes Betuncal</div>
+          <div class="p-team">Everton · FWD</div>
+          <div class="p-fixture">Everton vs Sunderland</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">46%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">7%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">12%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Danny Welbeck</div>
+          <div class="p-team">Brighton · FWD</div>
+          <div class="p-fixture">Brighton vs Wolves</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">46%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">5%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">19%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Jean-Philippe Mateta</div>
+          <div class="p-team">Crystal Palace · FWD</div>
+          <div class="p-fixture">Crystal Palace vs Everton</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">46%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">1%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">8%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Hugo Ekitiké</div>
+          <div class="p-team">Liverpool · FWD</div>
+          <div class="p-fixture">Liverpool vs Brentford</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">45%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">20%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">2%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Benjamin Sesko</div>
+          <div class="p-team">Man United · FWD</div>
+          <div class="p-fixture">Man United vs Liverpool</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">45%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">10%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">10%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Danny Welbeck</div>
+          <div class="p-team">Brighton · FWD</div>
+          <div class="p-fixture">Brighton vs Man United</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">44%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">4%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">19%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Zian Flemming</div>
+          <div class="p-team">Burnley · FWD</div>
+          <div class="p-fixture">Burnley vs Wolves</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">44%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">1%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">16%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Jean-Philippe Mateta</div>
+          <div class="p-team">Crystal Palace · FWD</div>
+          <div class="p-fixture">Crystal Palace vs Arsenal</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">43%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">1%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">8%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Richarlison de Andrade</div>
+          <div class="p-team">Tottenham · FWD</div>
+          <div class="p-fixture">Tottenham vs Leeds</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">43%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">22%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">23%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Hugo Ekitiké</div>
+          <div class="p-team">Liverpool · FWD</div>
+          <div class="p-fixture">Liverpool vs Chelsea</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">42%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">18%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">2%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Benjamin Sesko</div>
+          <div class="p-team">Man United · FWD</div>
+          <div class="p-fixture">Sunderland vs Man United</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">42%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">9%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">11%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Dominic Calvert-Lewin</div>
+          <div class="p-team">Leeds · FWD</div>
+          <div class="p-fixture">Leeds vs Brighton</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">42%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">7%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">7%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Richarlison de Andrade</div>
+          <div class="p-team">Tottenham · FWD</div>
+          <div class="p-fixture">Tottenham vs Everton</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">41%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">21%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">24%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Norberto Bercique Gomes Betuncal</div>
+          <div class="p-team">Everton · FWD</div>
+          <div class="p-fixture">Everton vs Man City</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">41%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">6%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">13%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Zian Flemming</div>
+          <div class="p-team">Burnley · FWD</div>
+          <div class="p-fixture">Burnley vs Aston Villa</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">41%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">1%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">16%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">João Pedro Junqueira de Jesus</div>
+          <div class="p-team">Chelsea · FWD</div>
+          <div class="p-fixture">Chelsea vs Tottenham</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">41%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">29%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">14%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Antoine Semenyo</div>
+          <div class="p-team">Man City · MID</div>
+          <div class="p-fixture">Man City vs Brentford</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">40%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">19%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">19%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Cole Palmer</div>
+          <div class="p-team">Chelsea · MID</div>
+          <div class="p-fixture">Chelsea vs Tottenham</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">40%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">11%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">20%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Igor Thiago Nascimento Rodrigues</div>
+          <div class="p-team">Brentford · FWD</div>
+          <div class="p-fixture">Liverpool vs Brentford</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">40%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">2%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">22%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="p-name">Raúl Jiménez Rodríguez</div>
+          <div class="p-team">Fulham · FWD</div>
+          <div class="p-fixture">Fulham vs Bournemouth</div>
+          <div class="p-stats">
+            <div class="p-stat score"><div class="p-stat-val prob-low">40%</div><div class="p-stat-lbl">Score</div></div>
+            <div class="p-stat"><div class="p-stat-val">20%</div><div class="p-stat-lbl">Assist</div></div>
+            <div class="p-stat"><div class="p-stat-val">18%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div></div><div class="player-section-title" style="margin-top:32px">Card Risks</div><div class="player-grid">
+        <div class="player-card card-risk">
+          <div class="p-name">Yerson Mosquera Valdelamar</div>
+          <div class="p-team">Wolves · DEF</div>
+          <div class="p-fixture">Brighton vs Wolves</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">45%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Vitaly Janelt</div>
+          <div class="p-team">Brentford · MID</div>
+          <div class="p-fixture">Man City vs Brentford</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">44%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Vitaly Janelt</div>
+          <div class="p-team">Brentford · MID</div>
+          <div class="p-fixture">Liverpool vs Brentford</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">44%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Yerson Mosquera Valdelamar</div>
+          <div class="p-team">Wolves · DEF</div>
+          <div class="p-fixture">Burnley vs Wolves</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">43%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Joelinton Cássio Apolinário de Lira</div>
+          <div class="p-team">Newcastle · MID</div>
+          <div class="p-fixture">Fulham vs Newcastle</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">41%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Will Hughes</div>
+          <div class="p-team">Crystal Palace · MID</div>
+          <div class="p-fixture">Man City vs Crystal Palace</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">41%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Saša Lukić</div>
+          <div class="p-team">Fulham · MID</div>
+          <div class="p-fixture">Wolves vs Fulham</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">40%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Yerson Mosquera Valdelamar</div>
+          <div class="p-team">Wolves · DEF</div>
+          <div class="p-fixture">Wolves vs Fulham</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">40%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Cristian Romero</div>
+          <div class="p-team">Tottenham · DEF</div>
+          <div class="p-fixture">Aston Villa vs Tottenham</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">39%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Cristian Romero</div>
+          <div class="p-team">Tottenham · DEF</div>
+          <div class="p-fixture">Chelsea vs Tottenham</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">39%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Will Hughes</div>
+          <div class="p-team">Crystal Palace · MID</div>
+          <div class="p-fixture">Bournemouth vs Crystal Palace</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">39%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Vitaly Janelt</div>
+          <div class="p-team">Brentford · MID</div>
+          <div class="p-fixture">Brentford vs Crystal Palace</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">39%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Will Hughes</div>
+          <div class="p-team">Crystal Palace · MID</div>
+          <div class="p-fixture">Brentford vs Crystal Palace</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">38%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Joelinton Cássio Apolinário de Lira</div>
+          <div class="p-team">Newcastle · MID</div>
+          <div class="p-fixture">Newcastle vs West Ham</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">38%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div>
+        <div class="player-card card-risk">
+          <div class="p-name">Saša Lukić</div>
+          <div class="p-team">Fulham · MID</div>
+          <div class="p-fixture">Fulham vs Newcastle</div>
+          <div class="p-stats">
+            <div class="p-stat"><div class="p-stat-val prob-low">37%</div><div class="p-stat-lbl">Yellow</div></div>
+          </div>
+        </div></div>
+</div>
+
+<!-- TAB 4: BET SUGGESTIONS -->
+<div id="bets" class="tab-content">
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> These are model-generated suggestions based on probability analysis.
+    They are not financial advice. The model has a 52.5% accuracy rate on match results.
+    Only bet what you can afford to lose. <strong>Always gamble responsibly. 18+</strong>
+  </div>
+  <div class="bet-group-title bet-high">High Confidence — 2 bets</div>
+                <div class="bet-card bet-high">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Erling Haaland to Score</div>
+                      <div class="bet-fixture">Man City vs Brentford · 2026-05-09</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★★<span class="star-empty"></span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">58%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">1.72</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-high">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Erling Haaland to Score</div>
+                      <div class="bet-fixture">Man City vs Crystal Palace · 2026-05-13</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★★<span class="star-empty"></span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">57%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">1.77</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div><div class="bet-group-title bet-med">Medium Confidence — 14 bets</div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Over 2.5 Goals</div>
+                      <div class="bet-fixture">Arsenal vs Burnley · 2026-05-18</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Goals</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">61%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">1.63</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Over 2.5 Goals</div>
+                      <div class="bet-fixture">Man City vs Crystal Palace · 2026-05-13</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Goals</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">60%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">1.66</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Erling Haaland to Score</div>
+                      <div class="bet-fixture">Man City vs Aston Villa · 2026-05-24</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">55%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">1.82</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Junior Kroupi to Score</div>
+                      <div class="bet-fixture">Bournemouth vs Crystal Palace · 2026-05-03</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">54%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">1.85</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Junior Kroupi to Score</div>
+                      <div class="bet-fixture">Bournemouth vs Man City · 2026-05-19</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">51%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">1.95</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Erling Haaland to Score</div>
+                      <div class="bet-fixture">Bournemouth vs Man City · 2026-05-19</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">50%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">2.01</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Erling Haaland to Score</div>
+                      <div class="bet-fixture">Everton vs Man City · 2026-05-04</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">49%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">2.02</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Igor Thiago Nascimento Rodrigues to Score</div>
+                      <div class="bet-fixture">Brentford vs Crystal Palace · 2026-05-17</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">49%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">2.02</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Viktor Gyökeres to Score</div>
+                      <div class="bet-fixture">Arsenal vs Burnley · 2026-05-18</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">49%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">2.06</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Junior Kroupi to Score</div>
+                      <div class="bet-fixture">Fulham vs Bournemouth · 2026-05-09</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">48%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">2.10</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Norberto Bercique Gomes Betuncal to Score</div>
+                      <div class="bet-fixture">Everton vs Sunderland · 2026-05-17</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">46%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">2.17</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Danny Welbeck to Score</div>
+                      <div class="bet-fixture">Brighton vs Wolves · 2026-05-09</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">46%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">2.18</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Jean-Philippe Mateta to Score</div>
+                      <div class="bet-fixture">Crystal Palace vs Everton · 2026-05-10</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">46%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">2.18</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+                <div class="bet-card bet-med">
+                  <div class="bet-top">
+                    <div>
+                      <div class="bet-name">Hugo Ekitiké to Score</div>
+                      <div class="bet-fixture">Liverpool vs Brentford · 2026-05-24</div>
+                    </div>
+                    <div class="bet-right">
+                      <span class="stars">★★<span class="star-empty">★</span></span>
+                      <div class="bet-market">Anytime Scorer</div>
+                    </div>
+                  </div>
+                  <div class="bet-stats">
+                    <div class="bs-item"><div class="bs-val">45%</div><div class="bs-lbl">Model Prob</div></div>
+                    <div class="bs-item"><div class="bs-val">2.22</div><div class="bs-lbl">Fair Odds</div></div>
+                  </div>
+                </div>
+</div>
+
+<div class="footer">
+  PL Intel · Neural network trained on 9120 historical matches<br>
+  Val accuracy: 52.5% · Temperature-scaled predictions · Not financial advice
+</div>
+
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
