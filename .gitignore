@@ -1,0 +1,8 @@
+premier_league.db 
+models/ 
+*.json 
+api_key.txt 
+pl_intel.html 
+value_finder.html 
+*.py 
+*.bat 
