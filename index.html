@@ -152,6 +152,17 @@ footer{text-align:center;color:var(--mu);font-family:var(--mono);font-size:10px;
   .p-grid{grid-template-columns:1fr 1fr}
   header{flex-direction:column;align-items:flex-start}
 }
+
+    .tracker-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+    .ts{background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:16px;text-align:center}
+    .ts-val{font-family:var(--display);font-size:32px;line-height:1;color:#fff}
+    .ts-val.green{color:var(--g)}.ts-val.amber{color:var(--go)}.ts-val.red{color:var(--r)}
+    .ts-lbl{font-family:var(--mono);font-size:10px;text-transform:uppercase;color:var(--mu);margin-top:6px}
+    .results-table{width:100%;border-collapse:collapse;font-size:13px}
+    .results-table th{background:var(--s1);padding:10px 12px;text-align:left;color:var(--mu);font-weight:400;font-size:10px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--bd)}
+    .results-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.03)}
+    .tc{text-align:center}.pred{color:var(--b)}.act{color:var(--g)}.score{font-family:var(--mono)}
+    @media(max-width:580px){.tracker-stats{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -176,6 +187,7 @@ footer{text-align:center;color:var(--mu);font-family:var(--mono);font-size:10px;
   <button class="tab on" onclick="show('p1',this)">Predictions <span class="badge">32</span></button>
   <button class="tab" onclick="show('p2',this)">Value Finder <span class="badge">1</span></button>
   <button class="tab" onclick="show('p3',this)">Player Picks <span class="badge">848</span></button>
+  <button class="tab" onclick="show('p5',this)">Results Tracker</button>
   <button class="tab" onclick="show('p4',this)">Bet Suggestions <span class="badge hot">0H 31M</span></button>
 </nav>
 
@@ -1178,6 +1190,31 @@ footer{text-align:center;color:var(--mu);font-family:var(--mono);font-size:10px;
 </div>
 </div>
 
+<div id="p5" class="pane"><div class="day-label" style="margin-top:0">Performance since tracking started</div>
+    <div class="tracker-stats">
+      <div class="ts"><div class="ts-val amber">0%</div><div class="ts-lbl">Match Accuracy</div></div>
+      <div class="ts"><div class="ts-val">0/2</div><div class="ts-lbl">Correct Results</div></div>
+      <div class="ts"><div class="ts-val red">+0.0u</div><div class="ts-lbl">Value Bet P&L</div></div>
+      <div class="ts"><div class="ts-val">0/0</div><div class="ts-lbl">Value Bets Won</div></div>
+    </div>
+    <table class="results-table">
+      <thead><tr><th>Fixture</th><th>Date</th><th>Predicted</th><th>Actual</th><th>Score</th><th></th></tr></thead>
+      <tbody><tr>
+          <td>Bournemouth vs Crystal Palace</td>
+          <td class="tc">2026-05-03</td>
+          <td class="tc pred">DRAW</td>
+          <td class="tc act">HOME</td>
+          <td class="tc score">3-0</td>
+          <td class="tc">❌</td>
+        </tr><tr>
+          <td>Man United vs Liverpool</td>
+          <td class="tc">2026-05-03</td>
+          <td class="tc pred">AWAY</td>
+          <td class="tc act">HOME</td>
+          <td class="tc score">3-2</td>
+          <td class="tc">❌</td>
+        </tr></tbody>
+    </table></div>
 <footer>PL INTEL · NEURAL NETWORK · 9120 MATCHES TRAINED · NOT FINANCIAL ADVICE</footer>
 </div>
 
