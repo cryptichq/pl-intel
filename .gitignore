@@ -7,7 +7,7 @@ odds_snapshots.json
 extra_data.json
 live_scores.json
 injuries.json
-results_log.json
+# results_log.json tracked — needed for Results Tracker tab
 api_key.txt
 apifootball_key.txt
 *.py
