@@ -56,6 +56,34 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .pb-odds{font-family:var(--dm);font-size:11px;color:var(--mu);margin-top:4px}
 .pb-div{width:1px;background:var(--bd);margin:12px 0}
 
+/* VALUE FINDER */
+.vf-wrap{background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:20px;margin-bottom:16px}
+.vf-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px}
+.vf-title{font-family:var(--dm);font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--mu)}
+.vf-note{font-size:11px;color:var(--mu);margin-bottom:16px;line-height:1.6}
+.vf-section-label{font-family:var(--dm);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mu);margin:0 0 10px 0;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+.vf-table{width:100%;border-collapse:collapse;margin-bottom:20px}
+.vf-table th{font-family:var(--dm);font-size:8px;text-transform:uppercase;letter-spacing:1px;color:var(--mu);padding:4px 10px;text-align:right;white-space:nowrap}
+.vf-table th:first-child{text-align:left}
+.vf-table td{padding:8px 10px;border-top:1px solid rgba(255,255,255,.04);font-size:12px;text-align:right;vertical-align:middle}
+.vf-table td:first-child{text-align:left;font-size:12px;color:#ccc}
+.vf-table tr.vf-value{background:rgba(0,255,135,.05);border-left:2px solid var(--g)}
+.vf-table tr.vf-value td:first-child::after{content:" VALUE";font-family:var(--dm);font-size:8px;color:var(--g);margin-left:6px;letter-spacing:1px}
+.vf-odds{font-family:var(--df);font-size:16px;color:#fff}
+.vf-model{color:var(--mu);font-family:var(--dm);font-size:10px}
+.vf-fair{font-family:var(--dm);font-size:11px;color:#aaa}
+.vf-edge{font-family:var(--dm);font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px}
+.vf-edge.pos{background:rgba(0,255,135,.12);color:var(--g)}
+.vf-edge.neg{background:rgba(255,51,85,.08);color:#ff6b7a}
+.vf-edge.neu{color:var(--mu)}
+.vf-ev{font-family:var(--dm);font-size:10px}
+.vf-ev.pos{color:var(--g)}.vf-ev.neg{color:#ff6b7a}
+.vf-no-b365{font-family:var(--dm);font-size:9px;color:var(--mu);background:rgba(255,255,255,.04);padding:2px 8px;border-radius:4px}
+.vf-dash{color:var(--mu);font-family:var(--dm);font-size:10px}
+/* player market table */
+.vf-pos-badge{font-family:var(--dm);font-size:8px;padding:2px 5px;border-radius:3px;text-transform:uppercase}
+.vf-highlight{color:var(--g);font-weight:600}
+
 /* BETFAIR EDGE */
 .bf-wrap{background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:20px;margin-bottom:16px}
 .bf-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
@@ -298,6 +326,369 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
 <div class="bf-wrap">
   <div class="bf-header"><span class="bf-title">Betfair Exchange</span></div>
   <div class="bf-no-data">No Betfair data — add credentials to betfair_username.txt / betfair_password.txt / betfair_appkey.txt</div>
+</div>
+
+<!-- VALUE FINDER -->
+<div class="vf-wrap">
+  <div class="vf-header">
+    <span class="vf-title">Value Finder — bet365 vs Model</span>
+    <span class="vf-no-b365" style="">No bet365 odds — add API key to oddsapi_key.txt (free at the-odds-api.com)</span>
+  </div>
+  <div class="vf-note">Edge = model probability minus bet365 implied probability. Green rows have 3%+ positive edge. Not financial advice.</div>
+  <div class="vf-section-label">Team Markets</div>
+<table class="vf-table">
+  <tr>
+    <th>Market</th><th>Model %</th><th>Fair Odds</th>
+    <th>bet365</th><th>Edge</th><th>EV / £1</th>
+  </tr>
+  <tr class="">
+  <td>Home Win</td>
+  <td class="vf-model">31%</td>
+  <td class="vf-fair">3.27</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Draw</td>
+  <td class="vf-model">34%</td>
+  <td class="vf-fair">2.92</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Away Win</td>
+  <td class="vf-model">35%</td>
+  <td class="vf-fair">2.85</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Over 1.5 Goals</td>
+  <td class="vf-model">77%</td>
+  <td class="vf-fair">1.30</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Over 2.5 Goals</td>
+  <td class="vf-model">49%</td>
+  <td class="vf-fair">2.05</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Under 2.5 Goals</td>
+  <td class="vf-model">51%</td>
+  <td class="vf-fair">1.95</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Over 3.5 Goals</td>
+  <td class="vf-model">31%</td>
+  <td class="vf-fair">3.25</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>BTTS - Yes</td>
+  <td class="vf-model">51%</td>
+  <td class="vf-fair">1.97</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>BTTS - No</td>
+  <td class="vf-model">49%</td>
+  <td class="vf-fair">2.03</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Leeds to Score</td>
+  <td class="vf-model">73%</td>
+  <td class="vf-fair">1.37</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Brighton to Score</td>
+  <td class="vf-model">78%</td>
+  <td class="vf-fair">1.29</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr>
+</table>
+  <div class="vf-section-label" style="margin-top:20px">Player Markets — Model Probabilities</div>
+<div class="vf-note" style="margin-bottom:12px">Model-estimated probabilities using Poisson. Check bet365 manually for live prices. Fair odds = 1 / model probability.</div>
+<table class="vf-table">
+  <tr>
+    <th style="text-align:left">Player</th><th style="text-align:left">Pos</th>
+    <th style="text-align:left">Team</th><th style="text-align:left">Market</th>
+    <th>Model %</th><th>Fair Odds</th>
+  </tr>
+  <tr>
+  <td class=" vf-highlight">Nmecha</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Leeds</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">90%</td>
+  <td class="vf-fair">1.11</td>
+</tr><tr>
+  <td class=" vf-highlight">Welbeck</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Brighton</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">87%</td>
+  <td class="vf-fair">1.15</td>
+</tr><tr>
+  <td class="">Calvert-Lewin</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Leeds</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">83%</td>
+  <td class="vf-fair">1.21</td>
+</tr><tr>
+  <td class="">Hinshelwood</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">65%</td>
+  <td class="vf-fair">1.54</td>
+</tr><tr>
+  <td class="">Okafor</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Leeds</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">65%</td>
+  <td class="vf-fair">1.55</td>
+</tr><tr>
+  <td class="">Gomez</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">61%</td>
+  <td class="vf-fair">1.65</td>
+</tr><tr>
+  <td class="">Mitoma</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">55%</td>
+  <td class="vf-fair">1.81</td>
+</tr><tr>
+  <td class=" vf-highlight">Nmecha</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Leeds</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">49%</td>
+  <td class="vf-fair">2.04</td>
+</tr><tr>
+  <td class=" vf-highlight">Welbeck</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Brighton</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">46%</td>
+  <td class="vf-fair">2.18</td>
+</tr><tr>
+  <td class="">Calvert-Lewin</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Leeds</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">41%</td>
+  <td class="vf-fair">2.45</td>
+</tr><tr>
+  <td class="">Hinshelwood</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">27%</td>
+  <td class="vf-fair">3.73</td>
+</tr><tr>
+  <td class="">Okafor</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Leeds</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">26%</td>
+  <td class="vf-fair">3.77</td>
+</tr><tr>
+  <td class="">Gomez</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">24%</td>
+  <td class="vf-fair">4.13</td>
+</tr><tr>
+  <td class="">Mitoma</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">21%</td>
+  <td class="vf-fair">4.69</td>
+</tr><tr>
+  <td class="">Mitoma</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>To Assist</td>
+  <td class="vf-model">16%</td>
+  <td class="vf-fair">6.29</td>
+</tr><tr>
+  <td class="">Hinshelwood</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>To Assist</td>
+  <td class="vf-model">13%</td>
+  <td class="vf-fair">7.75</td>
+</tr><tr>
+  <td class=" vf-highlight">Nmecha</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Leeds</td>
+  <td>To Assist</td>
+  <td class="vf-model">10%</td>
+  <td class="vf-fair">10.53</td>
+</tr><tr>
+  <td class="">Gomez</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>To Assist</td>
+  <td class="vf-model">8%</td>
+  <td class="vf-fair">11.90</td>
+</tr><tr>
+  <td class="">Okafor</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Leeds</td>
+  <td>To Assist</td>
+  <td class="vf-model">7%</td>
+  <td class="vf-fair">13.51</td>
+</tr><tr>
+  <td class=" vf-highlight">Welbeck</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Brighton</td>
+  <td>To Assist</td>
+  <td class="vf-model">7%</td>
+  <td class="vf-fair">14.71</td>
+</tr><tr>
+  <td class="">Calvert-Lewin</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Leeds</td>
+  <td>To Assist</td>
+  <td class="vf-model">4%</td>
+  <td class="vf-fair">27.03</td>
+</tr><tr>
+  <td class="">Darlow</td>
+  <td><span class="vf-pos-badge pgk">GK</span></td>
+  <td>Leeds</td>
+  <td>Save 3+ Shots</td>
+  <td class="vf-model">52%</td>
+  <td class="vf-fair">1.92</td>
+</tr><tr>
+  <td class="">Darlow</td>
+  <td><span class="vf-pos-badge pgk">GK</span></td>
+  <td>Leeds</td>
+  <td>Clean Sheet</td>
+  <td class="vf-model">27%</td>
+  <td class="vf-fair">3.70</td>
+</tr><tr>
+  <td class="">Okafor</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Leeds</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">15%</td>
+  <td class="vf-fair">6.67</td>
+</tr><tr>
+  <td class="">Hinshelwood</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">15%</td>
+  <td class="vf-fair">6.67</td>
+</tr><tr>
+  <td class="">Gomez</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">15%</td>
+  <td class="vf-fair">6.67</td>
+</tr><tr>
+  <td class="">Mitoma</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">15%</td>
+  <td class="vf-fair">6.67</td>
+</tr><tr>
+  <td class=" vf-highlight">Nmecha</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Leeds</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">15%</td>
+  <td class="vf-fair">6.80</td>
+</tr><tr>
+  <td class=" vf-highlight">Welbeck</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Brighton</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">13%</td>
+  <td class="vf-fair">7.94</td>
+</tr><tr>
+  <td class=" vf-highlight">Nmecha</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Leeds</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">10%</td>
+  <td class="vf-fair">10.00</td>
+</tr><tr>
+  <td class="">Calvert-Lewin</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Leeds</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">10%</td>
+  <td class="vf-fair">10.00</td>
+</tr><tr>
+  <td class=" vf-highlight">Welbeck</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Brighton</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">10%</td>
+  <td class="vf-fair">10.00</td>
+</tr><tr>
+  <td class="">Calvert-Lewin</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Leeds</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">10%</td>
+  <td class="vf-fair">10.20</td>
+</tr><tr>
+  <td class="">Hinshelwood</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">4%</td>
+  <td class="vf-fair">25.00</td>
+</tr><tr>
+  <td class="">Okafor</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Leeds</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">4%</td>
+  <td class="vf-fair">25.64</td>
+</tr><tr>
+  <td class="">Gomez</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">3%</td>
+  <td class="vf-fair">31.25</td>
+</tr><tr>
+  <td class="">Mitoma</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Brighton</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">2%</td>
+  <td class="vf-fair">40.00</td>
+</tr>
+</table>
 </div>
 
 <!-- WHY THE MODEL THINKS THIS -->

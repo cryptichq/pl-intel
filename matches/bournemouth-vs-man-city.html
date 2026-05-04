@@ -56,6 +56,34 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .pb-odds{font-family:var(--dm);font-size:11px;color:var(--mu);margin-top:4px}
 .pb-div{width:1px;background:var(--bd);margin:12px 0}
 
+/* VALUE FINDER */
+.vf-wrap{background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:20px;margin-bottom:16px}
+.vf-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px}
+.vf-title{font-family:var(--dm);font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--mu)}
+.vf-note{font-size:11px;color:var(--mu);margin-bottom:16px;line-height:1.6}
+.vf-section-label{font-family:var(--dm);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--mu);margin:0 0 10px 0;padding-bottom:6px;border-bottom:1px solid var(--bd)}
+.vf-table{width:100%;border-collapse:collapse;margin-bottom:20px}
+.vf-table th{font-family:var(--dm);font-size:8px;text-transform:uppercase;letter-spacing:1px;color:var(--mu);padding:4px 10px;text-align:right;white-space:nowrap}
+.vf-table th:first-child{text-align:left}
+.vf-table td{padding:8px 10px;border-top:1px solid rgba(255,255,255,.04);font-size:12px;text-align:right;vertical-align:middle}
+.vf-table td:first-child{text-align:left;font-size:12px;color:#ccc}
+.vf-table tr.vf-value{background:rgba(0,255,135,.05);border-left:2px solid var(--g)}
+.vf-table tr.vf-value td:first-child::after{content:" VALUE";font-family:var(--dm);font-size:8px;color:var(--g);margin-left:6px;letter-spacing:1px}
+.vf-odds{font-family:var(--df);font-size:16px;color:#fff}
+.vf-model{color:var(--mu);font-family:var(--dm);font-size:10px}
+.vf-fair{font-family:var(--dm);font-size:11px;color:#aaa}
+.vf-edge{font-family:var(--dm);font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px}
+.vf-edge.pos{background:rgba(0,255,135,.12);color:var(--g)}
+.vf-edge.neg{background:rgba(255,51,85,.08);color:#ff6b7a}
+.vf-edge.neu{color:var(--mu)}
+.vf-ev{font-family:var(--dm);font-size:10px}
+.vf-ev.pos{color:var(--g)}.vf-ev.neg{color:#ff6b7a}
+.vf-no-b365{font-family:var(--dm);font-size:9px;color:var(--mu);background:rgba(255,255,255,.04);padding:2px 8px;border-radius:4px}
+.vf-dash{color:var(--mu);font-family:var(--dm);font-size:10px}
+/* player market table */
+.vf-pos-badge{font-family:var(--dm);font-size:8px;padding:2px 5px;border-radius:3px;text-transform:uppercase}
+.vf-highlight{color:var(--g);font-weight:600}
+
 /* BETFAIR EDGE */
 .bf-wrap{background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:20px;margin-bottom:16px}
 .bf-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
@@ -298,6 +326,390 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
 <div class="bf-wrap">
   <div class="bf-header"><span class="bf-title">Betfair Exchange</span></div>
   <div class="bf-no-data">No Betfair data — add credentials to betfair_username.txt / betfair_password.txt / betfair_appkey.txt</div>
+</div>
+
+<!-- VALUE FINDER -->
+<div class="vf-wrap">
+  <div class="vf-header">
+    <span class="vf-title">Value Finder — bet365 vs Model</span>
+    <span class="vf-no-b365" style="">No bet365 odds — add API key to oddsapi_key.txt (free at the-odds-api.com)</span>
+  </div>
+  <div class="vf-note">Edge = model probability minus bet365 implied probability. Green rows have 3%+ positive edge. Not financial advice.</div>
+  <div class="vf-section-label">Team Markets</div>
+<table class="vf-table">
+  <tr>
+    <th>Market</th><th>Model %</th><th>Fair Odds</th>
+    <th>bet365</th><th>Edge</th><th>EV / £1</th>
+  </tr>
+  <tr class="">
+  <td>Home Win</td>
+  <td class="vf-model">22%</td>
+  <td class="vf-fair">4.51</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Draw</td>
+  <td class="vf-model">32%</td>
+  <td class="vf-fair">3.16</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Away Win</td>
+  <td class="vf-model">46%</td>
+  <td class="vf-fair">2.17</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Over 1.5 Goals</td>
+  <td class="vf-model">95%</td>
+  <td class="vf-fair">1.05</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Over 2.5 Goals</td>
+  <td class="vf-model">49%</td>
+  <td class="vf-fair">2.04</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Under 2.5 Goals</td>
+  <td class="vf-model">51%</td>
+  <td class="vf-fair">1.96</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Over 3.5 Goals</td>
+  <td class="vf-model">69%</td>
+  <td class="vf-fair">1.45</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>BTTS - Yes</td>
+  <td class="vf-model">50%</td>
+  <td class="vf-fair">1.99</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>BTTS - No</td>
+  <td class="vf-model">50%</td>
+  <td class="vf-fair">2.01</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Bournemouth to Score</td>
+  <td class="vf-model">75%</td>
+  <td class="vf-fair">1.33</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr><tr class="">
+  <td>Man City to Score</td>
+  <td class="vf-model">96%</td>
+  <td class="vf-fair">1.04</td>
+  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-dash">—</span></td>
+</tr>
+</table>
+  <div class="vf-section-label" style="margin-top:20px">Player Markets — Model Probabilities</div>
+<div class="vf-note" style="margin-bottom:12px">Model-estimated probabilities using Poisson. Check bet365 manually for live prices. Fair odds = 1 / model probability.</div>
+<table class="vf-table">
+  <tr>
+    <th style="text-align:left">Player</th><th style="text-align:left">Pos</th>
+    <th style="text-align:left">Team</th><th style="text-align:left">Market</th>
+    <th>Model %</th><th>Fair Odds</th>
+  </tr>
+  <tr>
+  <td class=" vf-highlight">Haaland</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Man City</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">97%</td>
+  <td class="vf-fair">1.04</td>
+</tr><tr>
+  <td class="">Semenyo</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">76%</td>
+  <td class="vf-fair">1.31</td>
+</tr><tr>
+  <td class=" vf-highlight">Kroupi.Jr</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Bournemouth</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">72%</td>
+  <td class="vf-fair">1.39</td>
+</tr><tr>
+  <td class="">Foden</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">68%</td>
+  <td class="vf-fair">1.48</td>
+</tr><tr>
+  <td class="">Brooks</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Bournemouth</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">64%</td>
+  <td class="vf-fair">1.55</td>
+</tr><tr>
+  <td class=" vf-highlight">Haaland</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Man City</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">64%</td>
+  <td class="vf-fair">1.57</td>
+</tr><tr>
+  <td class="">Cherki</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">61%</td>
+  <td class="vf-fair">1.64</td>
+</tr><tr>
+  <td class="">Evanilson</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Bournemouth</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">60%</td>
+  <td class="vf-fair">1.68</td>
+</tr><tr>
+  <td class="">Tavernier</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Bournemouth</td>
+  <td>Shot on Target</td>
+  <td class="vf-model">56%</td>
+  <td class="vf-fair">1.80</td>
+</tr><tr>
+  <td class="">Cherki</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>To Assist</td>
+  <td class="vf-model">45%</td>
+  <td class="vf-fair">2.22</td>
+</tr><tr>
+  <td class="">Semenyo</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">35%</td>
+  <td class="vf-fair">2.87</td>
+</tr><tr>
+  <td class=" vf-highlight">Kroupi.Jr</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Bournemouth</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">32%</td>
+  <td class="vf-fair">3.15</td>
+</tr><tr>
+  <td class="">Foden</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">28%</td>
+  <td class="vf-fair">3.51</td>
+</tr><tr>
+  <td class="">Brooks</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Bournemouth</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">26%</td>
+  <td class="vf-fair">3.79</td>
+</tr><tr>
+  <td class="">Cherki</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">24%</td>
+  <td class="vf-fair">4.12</td>
+</tr><tr>
+  <td class="">Evanilson</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Bournemouth</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">24%</td>
+  <td class="vf-fair">4.26</td>
+</tr><tr>
+  <td class="">Foden</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>To Assist</td>
+  <td class="vf-model">22%</td>
+  <td class="vf-fair">4.48</td>
+</tr><tr>
+  <td class="">Tavernier</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Bournemouth</td>
+  <td>Anytime Scorer</td>
+  <td class="vf-model">22%</td>
+  <td class="vf-fair">4.65</td>
+</tr><tr>
+  <td class="">Brooks</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Bournemouth</td>
+  <td>To Assist</td>
+  <td class="vf-model">18%</td>
+  <td class="vf-fair">5.46</td>
+</tr><tr>
+  <td class="">Tavernier</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Bournemouth</td>
+  <td>To Assist</td>
+  <td class="vf-model">10%</td>
+  <td class="vf-fair">9.71</td>
+</tr><tr>
+  <td class="">Semenyo</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>To Assist</td>
+  <td class="vf-model">10%</td>
+  <td class="vf-fair">9.71</td>
+</tr><tr>
+  <td class=" vf-highlight">Haaland</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Man City</td>
+  <td>To Assist</td>
+  <td class="vf-model">8%</td>
+  <td class="vf-fair">11.90</td>
+</tr><tr>
+  <td class=" vf-highlight">Kroupi.Jr</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Bournemouth</td>
+  <td>To Assist</td>
+  <td class="vf-model">6%</td>
+  <td class="vf-fair">16.95</td>
+</tr><tr>
+  <td class="">Evanilson</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Bournemouth</td>
+  <td>To Assist</td>
+  <td class="vf-model">4%</td>
+  <td class="vf-fair">26.32</td>
+</tr><tr>
+  <td class=" vf-highlight">Haaland</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Man City</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">27%</td>
+  <td class="vf-fair">3.75</td>
+</tr><tr>
+  <td class="">Brooks</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Bournemouth</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">15%</td>
+  <td class="vf-fair">6.67</td>
+</tr><tr>
+  <td class="">Tavernier</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Bournemouth</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">15%</td>
+  <td class="vf-fair">6.67</td>
+</tr><tr>
+  <td class="">Semenyo</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">15%</td>
+  <td class="vf-fair">6.67</td>
+</tr><tr>
+  <td class="">Foden</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">15%</td>
+  <td class="vf-fair">6.67</td>
+</tr><tr>
+  <td class="">Cherki</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">15%</td>
+  <td class="vf-fair">6.67</td>
+</tr><tr>
+  <td class=" vf-highlight">Kroupi.Jr</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Bournemouth</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">10%</td>
+  <td class="vf-fair">10.00</td>
+</tr><tr>
+  <td class="">Evanilson</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Bournemouth</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">10%</td>
+  <td class="vf-fair">10.00</td>
+</tr><tr>
+  <td class=" vf-highlight">Haaland</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Man City</td>
+  <td>Yellow Card</td>
+  <td class="vf-model">10%</td>
+  <td class="vf-fair">10.00</td>
+</tr><tr>
+  <td class="">Semenyo</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">7%</td>
+  <td class="vf-fair">14.49</td>
+</tr><tr>
+  <td class=" vf-highlight">Kroupi.Jr</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Bournemouth</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">6%</td>
+  <td class="vf-fair">17.86</td>
+</tr><tr>
+  <td class="">Foden</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">4%</td>
+  <td class="vf-fair">22.22</td>
+</tr><tr>
+  <td class="">Brooks</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Bournemouth</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">4%</td>
+  <td class="vf-fair">25.64</td>
+</tr><tr>
+  <td class="">Cherki</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Man City</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">3%</td>
+  <td class="vf-fair">31.25</td>
+</tr><tr>
+  <td class="">Evanilson</td>
+  <td><span class="vf-pos-badge pfwd">FWD</span></td>
+  <td>Bournemouth</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">3%</td>
+  <td class="vf-fair">33.33</td>
+</tr><tr>
+  <td class="">Tavernier</td>
+  <td><span class="vf-pos-badge pmid">MID</span></td>
+  <td>Bournemouth</td>
+  <td>Score 2+ (Brace)</td>
+  <td class="vf-model">2%</td>
+  <td class="vf-fair">40.00</td>
+</tr>
+</table>
 </div>
 
 <!-- WHY THE MODEL THINKS THIS -->
