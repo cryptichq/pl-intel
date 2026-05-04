@@ -94,20 +94,52 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .h2h-sc{font-family:var(--df);font-size:16px;color:#fff;text-align:center}
 
 /* PLAYERS */
-.mp-player{background:var(--s1);border:1px solid var(--bd);border-radius:8px;padding:12px;margin-bottom:7px}
-.mp-player-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.mp-pos{font-family:var(--dm);font-size:8px;padding:2px 5px;border-radius:3px;text-transform:uppercase}
-.pfwd{background:rgba(255,51,85,.15);color:#ff6b7a}
-.pmid{background:rgba(0,255,135,.1);color:var(--g)}
-.pdef{background:rgba(68,136,255,.12);color:#6da8ff}
-.pgk{background:rgba(255,159,0,.12);color:var(--go)}
-.mp-pname{font-size:13px;font-weight:500;color:#fff}
-.mp-stats{display:flex;gap:10px;margin-bottom:7px}
-.mp-stat{text-align:center}
-.mp-sv{font-family:var(--df);font-size:17px;line-height:1;color:var(--mu)}
-.mp-sv.sg{color:var(--g)}.mp-sv.sy{color:var(--go)}
-.mp-sl{font-family:var(--dm);font-size:8px;text-transform:uppercase;color:var(--mu);margin-top:1px}
-.mp-bars{margin-top:5px}
+.mp-player{background:var(--s1);border:1px solid var(--bd);border-radius:10px;padding:14px;margin-bottom:8px;position:relative;overflow:hidden}
+.mp-player-top-pick{border-color:rgba(0,255,135,.35);background:linear-gradient(135deg,rgba(0,255,135,.06) 0%,var(--s1) 60%)}
+.mp-top-badge{font-family:var(--dm);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--g);background:rgba(0,255,135,.12);border-bottom:1px solid rgba(0,255,135,.2);padding:5px 14px;margin:-14px -14px 12px -14px;display:flex;align-items:center;gap:6px}
+.mp-top-badge::before{content:"★";font-size:10px}
+.mp-player-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.mp-headshot{width:52px;height:64px;border-radius:7px;object-fit:cover;object-position:top center;background:var(--s2);flex-shrink:0;border:1px solid var(--bd)}
+.mp-headshot-ph{width:52px;height:64px;border-radius:7px;background:var(--s2);border:1px solid var(--bd);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--dm);font-size:18px;color:var(--mu)}
+.mp-player-meta{flex:1;min-width:0}
+.mp-badges{display:flex;align-items:center;gap:5px;margin-bottom:6px;flex-wrap:wrap}
+.mp-pos{font-family:var(--dm);font-size:8px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+.pfwd{background:rgba(255,51,85,.18);color:#ff6b7a}
+.pmid{background:rgba(0,255,135,.12);color:var(--g)}
+.pdef{background:rgba(68,136,255,.15);color:#6da8ff}
+.pgk{background:rgba(255,159,0,.15);color:var(--go)}
+.mp-pname{font-size:15px;font-weight:700;color:#fff;line-height:1.2}
+.mp-avail{font-family:var(--dm);font-size:8px;padding:2px 7px;border-radius:8px}
+.avail-ok{background:rgba(0,255,135,.1);color:var(--g)}
+.avail-doubt{background:rgba(255,159,0,.15);color:var(--go)}
+.avail-out{background:rgba(255,51,85,.15);color:#ff6b7a}
+/* stat rows */
+.mp-stats-list{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:10px}
+.mp-stat-row{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-radius:6px;padding:6px 10px}
+.mp-stat-lbl{font-family:var(--dm);font-size:9px;text-transform:uppercase;color:var(--mu);letter-spacing:.5px}
+.mp-stat-val{font-family:var(--df);font-size:15px;color:#fff;line-height:1}
+.mp-stat-val.sg{color:var(--g)}.mp-stat-val.sy{color:var(--go)}.mp-stat-val.sr{color:#ff6b7a}
+/* threat bar */
+.mp-threat{margin-bottom:10px}
+.mp-threat-label{display:flex;justify-content:space-between;font-family:var(--dm);font-size:8px;color:var(--mu);margin-bottom:4px}
+.mp-threat-bar{height:4px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.mp-threat-fill{height:100%;border-radius:2px}
+/* bet markets dropdown */
+.mp-bets{border-top:1px solid var(--bd);padding-top:10px;margin-top:2px}
+.mp-bets summary{font-family:var(--dm);font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--mu);cursor:pointer;user-select:none;list-style:none;display:flex;justify-content:space-between;align-items:center;padding:2px 0}
+.mp-bets summary::-webkit-details-marker{display:none}
+.mp-bets summary::after{content:"▾";font-size:10px;transition:transform .2s}
+.mp-bets[open] summary::after{transform:rotate(-180deg)}
+.mp-bet-rows{margin-top:8px;display:flex;flex-direction:column;gap:5px}
+.mp-bet-row{display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:6px;padding:7px 10px}
+.mp-bet-row.hot{background:rgba(0,255,135,.07);border:1px solid rgba(0,255,135,.15)}
+.mp-bet-name{font-size:11px;color:#ddd;flex:1}
+.mp-bet-prob{font-family:var(--dm);font-size:10px;color:var(--mu);width:34px;text-align:right}
+.mp-bet-prob.sg{color:var(--g)}.mp-bet-prob.sy{color:var(--go)}
+.mp-bet-odds{font-family:var(--df);font-size:14px;color:#fff;width:34px;text-align:right}
+.mp-bet-odds.hot{color:var(--g)}
+/* injury news */
+.mp-news{font-size:10px;color:var(--go);margin-top:8px;line-height:1.5;opacity:.85}
 
 /* REASONS */
 .reasons-grid{display:grid;gap:10px}
@@ -168,36 +200,36 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
     <div class="hero-team">
       <img src="/pl-intel/logos/leeds.png" class="mp-logo" width="72" height="72" alt="Leeds">
       <div class="hero-tname">Leeds</div>
-      <div class="hero-form"><span class="fd-dot fl">L</span><span class="fd-dot fl">L</span><span class="fd-dot fd">D</span><span class="fd-dot fl">L</span><span class="fd-dot fl">L</span></div>
+      <div class="hero-form"><span class="fd-dot fw">W</span><span class="fd-dot fd">D</span><span class="fd-dot fw">W</span><span class="fd-dot fw">W</span><span class="fd-dot fd">D</span></div>
     </div>
     <div class="hero-mid">
       <span class="hero-vs">VS</span>
-      <div class="hero-elo">1428 elo — 1568 elo</div>
+      <div class="hero-elo">1571 elo — 1612 elo</div>
     </div>
     <div class="hero-team away">
       <img src="/pl-intel/logos/brighton.png" class="mp-logo" width="72" height="72" alt="Brighton">
       <div class="hero-tname">Brighton</div>
-      <div class="hero-form"><span class="fd-dot fl">L</span><span class="fd-dot fl">L</span><span class="fd-dot fd">D</span><span class="fd-dot fw">W</span><span class="fd-dot fl">L</span></div>
+      <div class="hero-form"><span class="fd-dot fl">L</span><span class="fd-dot fw">W</span><span class="fd-dot fd">D</span><span class="fd-dot fw">W</span><span class="fd-dot fw">W</span></div>
     </div>
   </div>
 
   <div class="prob-bar">
     <div class="pb-item ">
       <div class="pb-label">Home Win</div>
-      <div class="pb-prob">26%</div>
-      <div class="pb-odds">Fair odds: 3.79</div>
+      <div class="pb-prob">31%</div>
+      <div class="pb-odds">Fair odds: 3.27</div>
     </div>
     <div class="pb-div"></div>
     <div class="pb-item ">
       <div class="pb-label">Draw</div>
       <div class="pb-prob">34%</div>
-      <div class="pb-odds">Fair odds: 2.94</div>
+      <div class="pb-odds">Fair odds: 2.92</div>
     </div>
     <div class="pb-div"></div>
     <div class="pb-item winner">
       <div class="pb-label">Away Win</div>
-      <div class="pb-prob">40%</div>
-      <div class="pb-odds">Fair odds: 2.53</div>
+      <div class="pb-prob">35%</div>
+      <div class="pb-odds">Fair odds: 2.85</div>
     </div>
   </div>
 
@@ -216,28 +248,28 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
 <div class="markets">
   <div class="mkt-pill ">
     <div class="mkt-name">Over 2.5</div>
-    <div class="mkt-prob">48%</div>
-    <div class="mkt-odds">2.08</div>
+    <div class="mkt-prob">49%</div>
+    <div class="mkt-odds">2.05</div>
   </div>
   <div class="mkt-pill ">
     <div class="mkt-name">BTTS</div>
     <div class="mkt-prob">51%</div>
-    <div class="mkt-odds">1.96</div>
+    <div class="mkt-odds">1.97</div>
   </div>
   <div class="mkt-pill hot">
     <div class="mkt-name">Corners</div>
-    <div class="mkt-prob">12.2</div>
+    <div class="mkt-prob">10.5</div>
     <div class="mkt-odds">O10.5 ✓</div>
   </div>
   <div class="mkt-pill">
     <div class="mkt-name">Under 2.5</div>
-    <div class="mkt-prob">52%</div>
-    <div class="mkt-odds">1.93</div>
+    <div class="mkt-prob">51%</div>
+    <div class="mkt-odds">1.95</div>
   </div>
   <div class="mkt-pill">
     <div class="mkt-name">No BTTS</div>
     <div class="mkt-prob">49%</div>
-    <div class="mkt-odds">2.05</div>
+    <div class="mkt-odds">2.03</div>
   </div>
 </div>
 
@@ -248,25 +280,7 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
   <div class="reason-icon">✈️</div>
   <div class="reason-body">
     <div class="reason-title" style="color:var(--g)">Brighton strong away form</div>
-    <div class="reason-text">The model gives Brighton a 40% chance of winning away. Their Elo of 1568 significantly exceeds Leeds's 1428, indicating Brighton are the class side despite travelling.</div>
-  </div>
-</div><div class="reason">
-  <div class="reason-icon">📊</div>
-  <div class="reason-body">
-    <div class="reason-title" style="color:var(--b)">Elo advantage: Brighton</div>
-    <div class="reason-text">Brighton hold a 140-point Elo advantage over Leeds. Elo is a rolling skill rating updated after every match — a gap this size reflects a consistent performance difference across the season.</div>
-  </div>
-</div><div class="reason">
-  <div class="reason-icon">📉</div>
-  <div class="reason-body">
-    <div class="reason-title" style="color:var(--go)">Leeds struggling</div>
-    <div class="reason-text">Leeds have lost 4 of their last 5 matches. Poor form is a key signal the model uses — it adjusts probabilities down for teams in bad runs.</div>
-  </div>
-</div><div class="reason">
-  <div class="reason-icon">😰</div>
-  <div class="reason-body">
-    <div class="reason-title" style="color:var(--go)">Brighton out of form</div>
-    <div class="reason-text">Brighton have lost 3 of their last 5 matches. The model penalises poor-form teams, which suppresses Brighton's away win probability.</div>
+    <div class="reason-text">The model gives Brighton a 35% chance of winning away. Their Elo of 1612 significantly exceeds Leeds's 1571, indicating Brighton are the class side despite travelling.</div>
   </div>
 </div><div class="reason">
   <div class="reason-icon">📜</div>
@@ -287,186 +301,249 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
 <div class="grid2">
   <div class="sec">
     <div class="sec-h">Leeds — Attack & Defence</div>
-    <div class="stat-row"><span class="stat-label">Goals scored/g</span><div class="sbar-wrap"><div class="sbar" style="width:40%;background:var(--g)"></div></div><span class="stat-val">1.20</span></div>
-    <div class="stat-row"><span class="stat-label">Goals conceded/g</span><div class="sbar-wrap"><div class="sbar" style="width:100%;background:var(--r)"></div></div><span class="stat-val">3.00</span></div>
-    <div class="stat-row"><span class="stat-label">Corners for/g</span><div class="sbar-wrap"><div class="sbar" style="width:54%;background:var(--b)"></div></div><span class="stat-val">5.4</span></div>
-    <div class="stat-row"><span class="stat-label">Corners ag/g</span><div class="sbar-wrap"><div class="sbar" style="width:86%;background:var(--mu)"></div></div><span class="stat-val">8.6</span></div>
-    <div class="stat-row"><span class="stat-label">Elo rating</span><div class="sbar-wrap"><div class="sbar" style="width:64%;background:var(--go)"></div></div><span class="stat-val">1428</span></div>
+    <div class="stat-row"><span class="stat-label">Goals scored/g</span><div class="sbar-wrap"><div class="sbar" style="width:43%;background:var(--g)"></div></div><span class="stat-val">1.30</span></div>
+    <div class="stat-row"><span class="stat-label">Goals conceded/g</span><div class="sbar-wrap"><div class="sbar" style="width:30%;background:var(--r)"></div></div><span class="stat-val">0.90</span></div>
+    <div class="stat-row"><span class="stat-label">Corners for/g</span><div class="sbar-wrap"><div class="sbar" style="width:55%;background:var(--b)"></div></div><span class="stat-val">5.5</span></div>
+    <div class="stat-row"><span class="stat-label">Corners ag/g</span><div class="sbar-wrap"><div class="sbar" style="width:48%;background:var(--mu)"></div></div><span class="stat-val">4.8</span></div>
+    <div class="stat-row"><span class="stat-label">Elo rating</span><div class="sbar-wrap"><div class="sbar" style="width:71%;background:var(--go)"></div></div><span class="stat-val">1571</span></div>
   </div>
   <div class="sec">
     <div class="sec-h">Brighton — Attack & Defence</div>
-    <div class="stat-row"><span class="stat-label">Goals scored/g</span><div class="sbar-wrap"><div class="sbar" style="width:16%;background:var(--g)"></div></div><span class="stat-val">0.50</span></div>
-    <div class="stat-row"><span class="stat-label">Goals conceded/g</span><div class="sbar-wrap"><div class="sbar" style="width:60%;background:var(--r)"></div></div><span class="stat-val">1.80</span></div>
-    <div class="stat-row"><span class="stat-label">Corners for/g</span><div class="sbar-wrap"><div class="sbar" style="width:41%;background:var(--b)"></div></div><span class="stat-val">4.1</span></div>
-    <div class="stat-row"><span class="stat-label">Corners ag/g</span><div class="sbar-wrap"><div class="sbar" style="width:64%;background:var(--mu)"></div></div><span class="stat-val">6.4</span></div>
-    <div class="stat-row"><span class="stat-label">Elo rating</span><div class="sbar-wrap"><div class="sbar" style="width:71%;background:var(--go)"></div></div><span class="stat-val">1568</span></div>
+    <div class="stat-row"><span class="stat-label">Goals scored/g</span><div class="sbar-wrap"><div class="sbar" style="width:50%;background:var(--g)"></div></div><span class="stat-val">1.50</span></div>
+    <div class="stat-row"><span class="stat-label">Goals conceded/g</span><div class="sbar-wrap"><div class="sbar" style="width:30%;background:var(--r)"></div></div><span class="stat-val">0.90</span></div>
+    <div class="stat-row"><span class="stat-label">Corners for/g</span><div class="sbar-wrap"><div class="sbar" style="width:59%;background:var(--b)"></div></div><span class="stat-val">5.9</span></div>
+    <div class="stat-row"><span class="stat-label">Corners ag/g</span><div class="sbar-wrap"><div class="sbar" style="width:48%;background:var(--mu)"></div></div><span class="stat-val">4.8</span></div>
+    <div class="stat-row"><span class="stat-label">Elo rating</span><div class="sbar-wrap"><div class="sbar" style="width:73%;background:var(--go)"></div></div><span class="stat-val">1612</span></div>
   </div>
 </div>
 
 <!-- PLAYERS -->
 <div class="grid2">
   <div class="sec">
-    <div class="sec-h">Leeds — Player Picks</div>
-    <div class="mp-player">
-  <div class="mp-player-top">
-    <span class="mp-pos pfwd">FWD</span>
-    <span class="mp-pname">Dominic Calvert-Lewin</span>
+    <div class="sec-h">Leeds — Key Players</div>
+    <div class="mp-player mp-player-top-pick">
+  <div class="mp-top-badge">MOST PROBABLE &middot; Shot on Target 90%</div><div class="mp-player-top">
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p174594.png" alt="Nmecha" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">F</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pfwd">FWD</span>
+        <span class="mp-avail avail-ok">AVAIL</span>
+      </div>
+      <div class="mp-pname">Nmecha</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">42%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">7%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">7%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:59%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sy">6</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val ">1</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.67</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.10</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">0.8</span></div></div>
+  <div class="mp-threat">
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.78</span></div>
+    <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:100%;background:var(--g)"></div></div>
+  </div><details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob sy">49%</span><span class="mp-bet-odds ">2.04</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">10%</span><span class="mp-bet-odds ">10.53</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">90%</span><span class="mp-bet-odds hot">1.11</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.80</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">10%</span><span class="mp-bet-odds ">10.00</span></div></div>
+  </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
-    <span class="mp-pos pmid">MID</span>
-    <span class="mp-pname">Noah Okafor</span>
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p177815.png" alt="Calvert-Lewin" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">F</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pfwd">FWD</span>
+        <span class="mp-avail avail-ok">AVAIL</span>
+      </div>
+      <div class="mp-pname">Calvert-Lewin</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">38%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">17%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">16%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:54%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sg">12</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val ">2</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.52</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.04</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val sy">4.0</span></div></div>
+  <div class="mp-threat">
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.56</span></div>
+    <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:93%;background:var(--g)"></div></div>
+  </div><details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob sy">41%</span><span class="mp-bet-odds ">2.45</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">4%</span><span class="mp-bet-odds ">27.03</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">83%</span><span class="mp-bet-odds hot">1.21</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">10%</span><span class="mp-bet-odds ">10.20</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">10%</span><span class="mp-bet-odds ">10.00</span></div></div>
+  </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
-    <span class="mp-pos pmid">MID</span>
-    <span class="mp-pname">Anton Stach</span>
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p435997.png" alt="Okafor" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">M</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pmid">MID</span>
+        <span class="mp-avail avail-ok">AVAIL</span>
+      </div>
+      <div class="mp-pname">Okafor</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">19%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">23%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">11%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:27%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sy">8</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val ">3</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.30</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.08</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val sg">10.2</span></div></div>
+  <div class="mp-threat">
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.39</span></div>
+    <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:64%;background:var(--g)"></div></div>
+  </div><details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">26%</span><span class="mp-bet-odds ">3.77</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">7%</span><span class="mp-bet-odds ">13.51</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">65%</span><span class="mp-bet-odds hot">1.55</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">4%</span><span class="mp-bet-odds ">25.64</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
+  </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
-    <span class="mp-pos pmid">MID</span>
-    <span class="mp-pname">Brenden Aaronson</span>
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p59735.png" alt="Darlow" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">G</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pgk">GK</span>
+        <span class="mp-avail avail-ok">AVAIL</span>
+      </div>
+      <div class="mp-pname">Darlow</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">16%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">29%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">8%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:23%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Saves (season)</span><span class="mp-stat-val ">50</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Clean Sheets</span><span class="mp-stat-val ">4</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form</span><span class="mp-stat-val ">3.5</span></div></div>
+  <details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Clean Sheet</span><span class="mp-bet-prob ">27%</span><span class="mp-bet-odds ">3.70</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Save 3+ Shots</span><span class="mp-bet-prob sy">52%</span><span class="mp-bet-odds hot">1.92</span></div></div>
+  </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
-    <span class="mp-pos pdef">DEF</span>
-    <span class="mp-pname">James Justin</span>
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p201595.png" alt="Perri" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">G</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pgk">GK</span>
+        <span class="mp-avail avail-ok">AVAIL</span>
+      </div>
+      <div class="mp-pname">Perri</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">11%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">6%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">19%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:15%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Saves (season)</span><span class="mp-stat-val ">38</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Clean Sheets</span><span class="mp-stat-val ">3</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form</span><span class="mp-stat-val ">0.0</span></div></div>
+  <details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Clean Sheet</span><span class="mp-bet-prob ">27%</span><span class="mp-bet-odds ">3.70</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Save 3+ Shots</span><span class="mp-bet-prob sy">52%</span><span class="mp-bet-odds hot">1.92</span></div></div>
+  </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
-    <span class="mp-pos pdef">DEF</span>
-    <span class="mp-pname">Pascal Struijk</span>
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p427637.png" alt="Aaronson" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">M</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pmid">MID</span>
+        <span class="mp-avail avail-ok">AVAIL</span>
+      </div>
+      <div class="mp-pname">Aaronson</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">10%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">3%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">14%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:13%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val ">4</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val sg">8</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sy">0.17</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.13</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">3.2</span></div></div>
+  <div class="mp-threat">
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.30</span></div>
+    <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:50%;background:var(--go)"></div></div>
+  </div><details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">16%</span><span class="mp-bet-odds ">6.29</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">12%</span><span class="mp-bet-odds ">8.33</span></div><div class="mp-bet-row "><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sy">44%</span><span class="mp-bet-odds ">2.26</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">1%</span><span class="mp-bet-odds ">76.92</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
+  </details>
 </div>
   </div>
   <div class="sec">
-    <div class="sec-h">Brighton — Player Picks</div>
-    <div class="mp-player">
-  <div class="mp-player-top">
-    <span class="mp-pos pfwd">FWD</span>
-    <span class="mp-pname">Danny Welbeck</span>
+    <div class="sec-h">Brighton — Key Players</div>
+    <div class="mp-player mp-player-top-pick">
+  <div class="mp-top-badge">MOST PROBABLE &middot; Shot on Target 87%</div><div class="mp-player-top">
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p50175.png" alt="Welbeck" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">F</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pfwd">FWD</span>
+        <span class="mp-avail avail-ok">AVAIL</span>
+      </div>
+      <div class="mp-pname">Welbeck</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">40%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">4%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">21%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:57%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sg">13</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val ">1</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.52</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.06</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">3.8</span></div></div>
+  <div class="mp-threat">
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.69</span></div>
+    <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:100%;background:var(--g)"></div></div>
+  </div><details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob sy">46%</span><span class="mp-bet-odds ">2.18</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">7%</span><span class="mp-bet-odds ">14.71</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">87%</span><span class="mp-bet-odds hot">1.15</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">13%</span><span class="mp-bet-odds ">7.94</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">10%</span><span class="mp-bet-odds ">10.00</span></div></div>
+  </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
-    <span class="mp-pos pmid">MID</span>
-    <span class="mp-pname">Jack Hinshelwood</span>
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p532529.png" alt="Hinshelwood" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">M</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pmid">MID</span>
+        <span class="mp-avail avail-ok">AVAIL</span>
+      </div>
+      <div class="mp-pname">Hinshelwood</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">21%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">24%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">2%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:30%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val ">3</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val sy">5</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.27</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.12</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val sy">5.0</span></div></div>
+  <div class="mp-threat">
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.45</span></div>
+    <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:75%;background:var(--g)"></div></div>
+  </div><details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">27%</span><span class="mp-bet-odds ">3.73</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">13%</span><span class="mp-bet-odds ">7.75</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">65%</span><span class="mp-bet-odds hot">1.54</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">4%</span><span class="mp-bet-odds ">25.00</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
+  </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
-    <span class="mp-pos pmid">MID</span>
-    <span class="mp-pname">Diego Gómez Amarilla</span>
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p514254.png" alt="Gomez" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">M</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pmid">MID</span>
+        <span class="mp-avail avail-doubt">DOUBT</span>
+      </div>
+      <div class="mp-pname">Gomez</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">19%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">4%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">35%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:27%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sy">5</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val ">1</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sy">0.23</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.07</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">1.5</span></div></div>
+  <div class="mp-threat">
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.36</span></div>
+    <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:60%;background:var(--g)"></div></div>
+  </div><div class="mp-news">Knee injury - 50% chance of playing</div><details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">24%</span><span class="mp-bet-odds ">4.13</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">8%</span><span class="mp-bet-odds ">11.90</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">61%</span><span class="mp-bet-odds hot">1.65</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">3%</span><span class="mp-bet-odds ">31.25</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
+  </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
-    <span class="mp-pos pmid">MID</span>
-    <span class="mp-pname">Mitoma Kaoru</span>
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p451340.png" alt="Mitoma" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">M</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pmid">MID</span>
+        <span class="mp-avail avail-ok">AVAIL</span>
+      </div>
+      <div class="mp-pname">Mitoma</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">17%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">5%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">21%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:23%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val ">3</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val ">1</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sy">0.20</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.15</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">2.8</span></div></div>
+  <div class="mp-threat">
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.41</span></div>
+    <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:68%;background:var(--g)"></div></div>
+  </div><details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">21%</span><span class="mp-bet-odds ">4.69</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">16%</span><span class="mp-bet-odds ">6.29</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">55%</span><span class="mp-bet-odds hot">1.81</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">2%</span><span class="mp-bet-odds ">40.00</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
+  </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
-    <span class="mp-pos pmid">MID</span>
-    <span class="mp-pname">Georginio Rutter</span>
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p489639.png" alt="Verbruggen" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">G</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pgk">GK</span>
+        <span class="mp-avail avail-ok">AVAIL</span>
+      </div>
+      <div class="mp-pname">Verbruggen</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">13%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">21%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">11%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:18%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Saves (season)</span><span class="mp-stat-val ">99</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Clean Sheets</span><span class="mp-stat-val ">9</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form</span><span class="mp-stat-val sy">4.8</span></div></div>
+  <details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Clean Sheet</span><span class="mp-bet-prob ">27%</span><span class="mp-bet-odds ">3.70</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Save 3+ Shots</span><span class="mp-bet-prob sy">52%</span><span class="mp-bet-odds hot">1.92</span></div></div>
+  </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
-    <span class="mp-pos pmid">MID</span>
-    <span class="mp-pname">Yankuba Minteh</span>
+    <img class="mp-headshot" src="https://resources.premierleague.com/premierleague/photos/players/110x140/p592031.png" alt="Minteh" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="mp-headshot-ph" style="display:none">M</div>
+    <div class="mp-player-meta">
+      <div class="mp-badges">
+        <span class="mp-pos pmid">MID</span>
+        <span class="mp-avail avail-ok">AVAIL</span>
+      </div>
+      <div class="mp-pname">Minteh</div>
+    </div>
   </div>
-  <div class="mp-stats">
-    <div class="mp-stat"><div class="mp-sv ">12%</div><div class="mp-sl">Score</div></div>
-    <div class="mp-stat"><div class="mp-sv">26%</div><div class="mp-sl">Assist</div></div>
-    <div class="mp-stat"><div class="mp-sv ">13%</div><div class="mp-sl">Card</div></div>
-  </div>
-  <div class="mp-bars">
-    <div class="sbar-wrap"><div class="sbar" style="width:17%;background:var(--g)"></div></div>
-  </div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val ">2</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val sg">8</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sy">0.15</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val sy">0.19</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">2.2</span></div></div>
+  <div class="mp-threat">
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.40</span></div>
+    <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:66%;background:var(--g)"></div></div>
+  </div><details class="mp-bets">
+    <summary>Bet Markets</summary>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">16%</span><span class="mp-bet-odds ">6.21</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">20%</span><span class="mp-bet-odds ">5.03</span></div><div class="mp-bet-row "><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sy">45%</span><span class="mp-bet-odds ">2.24</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">1%</span><span class="mp-bet-odds ">71.43</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
+  </details>
 </div>
   </div>
 </div>
@@ -476,14 +553,14 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
   <div class="sec-h">Corners &amp; Cards Breakdown</div>
   <div class="cc-grid">
     <div class="cc-item">
-      <div class="cc-val hot">12.2</div>
+      <div class="cc-val hot">10.5</div>
       <div class="cc-lbl">Predicted Corners</div>
       <div class="cc-sub">O10.5 expected ✓</div>
     </div>
     <div class="cc-item">
-      <div class="cc-val">9.5</div>
+      <div class="cc-val">11.4</div>
       <div class="cc-lbl">Combined For Avg</div>
-      <div class="cc-sub">Leeds 5.4 + Brighton 4.1</div>
+      <div class="cc-sub">Leeds 5.5 + Brighton 5.9</div>
     </div>
   </div>
 </div>
@@ -492,7 +569,7 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
 <div class="sec-full">
   <div class="sec-h">Head to Head — Last 5 meetings</div>
   <div class="h2h-summary" style="display:flex;gap:10px;margin-bottom:14px"><span style="background:rgba(0,255,135,.1);color:var(--g);padding:4px 12px;border-radius:6px;font-family:var(--dm);font-size:11px">0 Leeds wins</span><span style="background:rgba(255,159,0,.1);color:var(--go);padding:4px 12px;border-radius:6px;font-family:var(--dm);font-size:11px">3 draws</span><span style="background:rgba(255,51,85,.1);color:var(--r);padding:4px 12px;border-radius:6px;font-family:var(--dm);font-size:11px">2 Brighton wins</span></div>
-  <div class="h2h-row"><span class="h2h-dt">2023-03</span><span>Leeds</span><span class="h2h-sc">2 - 2</span><span>Brighton</span></div><div class="h2h-row"><span class="h2h-dt">2022-08</span><span>Leeds</span><span class="h2h-sc">1 - 0</span><span>Brighton</span></div><div class="h2h-row"><span class="h2h-dt">2022-05</span><span>Leeds</span><span class="h2h-sc">1 - 1</span><span>Brighton</span></div><div class="h2h-row"><span class="h2h-dt">2021-11</span><span>Leeds</span><span class="h2h-sc">0 - 0</span><span>Brighton</span></div><div class="h2h-row"><span class="h2h-dt">2021-05</span><span>Leeds</span><span class="h2h-sc">2 - 0</span><span>Brighton</span></div>
+  <div class="h2h-row"><span class="h2h-dt">2025-11</span><span>Leeds</span><span class="h2h-sc">3 - 0</span><span>Brighton</span></div><div class="h2h-row"><span class="h2h-dt">2023-03</span><span>Leeds</span><span class="h2h-sc">2 - 2</span><span>Brighton</span></div><div class="h2h-row"><span class="h2h-dt">2022-08</span><span>Leeds</span><span class="h2h-sc">1 - 0</span><span>Brighton</span></div><div class="h2h-row"><span class="h2h-dt">2022-05</span><span>Leeds</span><span class="h2h-sc">1 - 1</span><span>Brighton</span></div><div class="h2h-row"><span class="h2h-dt">2021-11</span><span>Leeds</span><span class="h2h-sc">0 - 0</span><span>Brighton</span></div>
 </div>
 
 <!-- INJURIES -->

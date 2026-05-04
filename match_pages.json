@@ -2,6 +2,7 @@
   "Bournemouth vs Crystal Palace": "matches/bournemouth-vs-crystal-palace.html",
   "Man United vs Liverpool": "matches/man-united-vs-liverpool.html",
   "Aston Villa vs Tottenham": "matches/aston-villa-vs-tottenham.html",
+  "Chelsea vs Nott'm Forest": "matches/chelsea-vs-nottm-forest.html",
   "Everton vs Man City": "matches/everton-vs-man-city.html",
   "Liverpool vs Chelsea": "matches/liverpool-vs-chelsea.html",
   "Sunderland vs Man United": "matches/sunderland-vs-man-united.html",
@@ -10,10 +11,12 @@
   "Man City vs Brentford": "matches/man-city-vs-brentford.html",
   "Crystal Palace vs Everton": "matches/crystal-palace-vs-everton.html",
   "Burnley vs Aston Villa": "matches/burnley-vs-aston-villa.html",
+  "Nott'm Forest vs Newcastle": "matches/nottm-forest-vs-newcastle.html",
   "West Ham vs Arsenal": "matches/west-ham-vs-arsenal.html",
   "Tottenham vs Leeds": "matches/tottenham-vs-leeds.html",
   "Man City vs Crystal Palace": "matches/man-city-vs-crystal-palace.html",
   "Aston Villa vs Liverpool": "matches/aston-villa-vs-liverpool.html",
+  "Man United vs Nott'm Forest": "matches/man-united-vs-nottm-forest.html",
   "Brentford vs Crystal Palace": "matches/brentford-vs-crystal-palace.html",
   "Everton vs Sunderland": "matches/everton-vs-sunderland.html",
   "Leeds vs Brighton": "matches/leeds-vs-brighton.html",
@@ -30,5 +33,6 @@
   "Liverpool vs Brentford": "matches/liverpool-vs-brentford.html",
   "Man City vs Aston Villa": "matches/man-city-vs-aston-villa.html",
   "Tottenham vs Everton": "matches/tottenham-vs-everton.html",
-  "West Ham vs Leeds": "matches/west-ham-vs-leeds.html"
+  "West Ham vs Leeds": "matches/west-ham-vs-leeds.html",
+  "Nott'm Forest vs Bournemouth": "matches/nottm-forest-vs-bournemouth.html"
 }
