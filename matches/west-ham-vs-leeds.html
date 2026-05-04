@@ -56,6 +56,27 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .pb-odds{font-family:var(--dm);font-size:11px;color:var(--mu);margin-top:4px}
 .pb-div{width:1px;background:var(--bd);margin:12px 0}
 
+/* BETFAIR EDGE */
+.bf-wrap{background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:20px;margin-bottom:16px}
+.bf-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.bf-title{font-family:var(--dm);font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--mu)}
+.bf-matched{font-family:var(--dm);font-size:9px;color:var(--mu)}
+.bf-table{width:100%;border-collapse:collapse}
+.bf-table th{font-family:var(--dm);font-size:8px;text-transform:uppercase;letter-spacing:1px;color:var(--mu);padding:4px 10px;text-align:right}
+.bf-table th:first-child{text-align:left}
+.bf-table td{padding:8px 10px;border-top:1px solid var(--bd);font-size:13px;text-align:right;vertical-align:middle}
+.bf-table td:first-child{text-align:left;font-family:var(--dm);font-size:10px;color:#ccc;letter-spacing:.5px}
+.bf-odds{font-family:var(--df);font-size:17px;color:#fff}
+.bf-model{color:var(--mu);font-family:var(--dm);font-size:10px}
+.bf-edge{font-family:var(--dm);font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px}
+.bf-edge.pos{background:rgba(0,255,135,.12);color:var(--g)}
+.bf-edge.neg{background:rgba(255,51,85,.1);color:#ff6b7a}
+.bf-edge.neu{color:var(--mu)}
+.bf-ev{font-family:var(--dm);font-size:10px}
+.bf-ev.pos{color:var(--g)}.bf-ev.neg{color:#ff6b7a}
+.bf-best-row{background:rgba(0,255,135,.05);border-left:2px solid var(--g)}
+.bf-no-data{font-size:12px;color:var(--mu);font-style:italic;text-align:center;padding:20px 0}
+
 /* BEST BET CALLOUT */
 .best-bet{background:linear-gradient(135deg,rgba(0,255,135,.08) 0%,rgba(0,255,135,.02) 100%);border:1px solid rgba(0,255,135,.2);border-radius:12px;padding:20px 24px;margin-bottom:32px;display:flex;align-items:center;gap:20px}
 .bb-icon{font-size:32px}
@@ -271,6 +292,12 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
     <div class="mkt-prob">49%</div>
     <div class="mkt-odds">2.03</div>
   </div>
+</div>
+
+<!-- BETFAIR EDGE -->
+<div class="bf-wrap">
+  <div class="bf-header"><span class="bf-title">Betfair Exchange</span></div>
+  <div class="bf-no-data">No Betfair data — add credentials to betfair_username.txt / betfair_password.txt / betfair_appkey.txt</div>
 </div>
 
 <!-- WHY THE MODEL THINKS THIS -->
