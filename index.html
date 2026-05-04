@@ -153,6 +153,22 @@ footer{text-align:center;color:var(--mu);font-family:var(--mono);font-size:10px;
   header{flex-direction:column;align-items:flex-start}
 }
 
+
+/* Live scores bar */
+.live-bar{display:flex;align-items:center;gap:16px;background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:10px 16px;margin:20px 0 0;overflow:hidden}
+.lb-label{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--g);letter-spacing:2px;white-space:nowrap}
+.lb-scroll{display:flex;gap:16px;overflow-x:auto;flex:1;scrollbar-width:none}
+.lb-scroll::-webkit-scrollbar{display:none}
+.lb-time{font-family:var(--mono);font-size:9px;color:var(--mu);white-space:nowrap}
+.ls-item{display:flex;align-items:center;gap:8px;white-space:nowrap;padding:4px 12px;border-radius:6px;background:var(--s1);border:1px solid var(--bd)}
+.ls-item.live{border-color:rgba(10,255,138,.2);background:rgba(10,255,138,.04)}
+.ls-item.fin{opacity:.7}
+.ls-teams{font-size:12px;color:var(--tx)}
+.ls-teams b{color:#fff;font-weight:600}
+.ls-min{font-family:var(--mono);font-size:10px;color:var(--g)}
+.ls-ft{font-family:var(--mono);font-size:10px;color:var(--mu)}
+.ls-ko{font-family:var(--mono);font-size:10px;color:var(--mu)}
+.ls-live-dot{width:5px;height:5px;background:var(--g);border-radius:50%;animation:blink 1s infinite}
 /* Injury dropdowns */
 .inj-dropdown{margin:0 0 0 0}
 .inj-toggle{width:100%;display:flex;align-items:center;gap:8px;padding:8px 16px;background:transparent;border:none;border-top:1px solid var(--bd);cursor:pointer;font-family:var(--body);font-size:12px;text-align:left;transition:background .15s}
@@ -194,12 +210,13 @@ footer{text-align:center;color:var(--mu);font-family:var(--mono);font-size:10px;
     </div>
   </div>
   <div class="header-meta">
-    <span class="dot"></span>04 May 2026 · 00:54<br>
+    <span class="dot"></span>04 May 2026 · 01:07<br>
     <span class="stat-pill"><b>32</b> fixtures</span>
     <span class="stat-pill"><b>60</b> bet suggestions</span>
     <span class="stat-pill"><b>52.5%</b> model accuracy</span>
   </div>
 </header>
+
 
 <nav>
   <button class="tab on" onclick="show('p1',this)">Predictions <span class="badge">32</span></button>
