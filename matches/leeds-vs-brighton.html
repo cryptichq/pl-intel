@@ -79,6 +79,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .vf-ev{font-family:var(--dm);font-size:10px}
 .vf-ev.pos{color:var(--g)}.vf-ev.neg{color:#ff6b7a}
 .vf-no-b365{font-family:var(--dm);font-size:9px;color:var(--mu);background:rgba(255,255,255,.04);padding:2px 8px;border-radius:4px}
+.vf-book{display:block;font-family:var(--dm);font-size:8px;color:var(--mu);margin-top:1px}
 .vf-dash{color:var(--mu);font-family:var(--dm);font-size:10px}
 /* player market table */
 .vf-pos-badge{font-family:var(--dm);font-size:8px;padding:2px 5px;border-radius:3px;text-transform:uppercase}
@@ -332,90 +333,90 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
 <div class="vf-wrap">
   <div class="vf-header">
     <span class="vf-title">Value Finder — bet365 vs Model</span>
-    <span class="vf-no-b365" style="">No bet365 odds — add API key to oddsapi_key.txt (free at the-odds-api.com)</span>
+    <span class="vf-no-b365" style="background:rgba(0,255,135,.08);color:var(--g)">Live odds — Sky Bet, Ladbrokes, William Hill & more</span>
   </div>
   <div class="vf-note">Edge = model probability minus bet365 implied probability. Green rows have 3%+ positive edge. Not financial advice.</div>
   <div class="vf-section-label">Team Markets</div>
 <table class="vf-table">
   <tr>
     <th>Market</th><th>Model %</th><th>Fair Odds</th>
-    <th>bet365</th><th>Edge</th><th>EV / £1</th>
+    <th>Best Odds</th><th>Edge</th><th>EV / £1</th>
   </tr>
   <tr class="">
   <td>Home Win</td>
   <td class="vf-model">31%</td>
   <td class="vf-fair">3.27</td>
-  <td><span class="vf-no-b365">no key</span></td>
-  <td><span class="vf-dash">—</span></td>
-  <td><span class="vf-dash">—</span></td>
-</tr><tr class="">
+  <td><span class="vf-odds">3.05</span><span class="vf-book">Unibet</span></td>
+  <td><span class="vf-edge neg">-2.2%</span></td>
+  <td><span class="vf-ev neg">-0.067</span></td>
+</tr><tr class="vf-value">
   <td>Draw</td>
   <td class="vf-model">34%</td>
   <td class="vf-fair">2.92</td>
-  <td><span class="vf-no-b365">no key</span></td>
-  <td><span class="vf-dash">—</span></td>
-  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-odds">3.60</span><span class="vf-book">Casumo</span></td>
+  <td><span class="vf-edge pos">+6.5%</span></td>
+  <td><span class="vf-ev pos">+0.233</span></td>
 </tr><tr class="">
   <td>Away Win</td>
   <td class="vf-model">35%</td>
   <td class="vf-fair">2.85</td>
-  <td><span class="vf-no-b365">no key</span></td>
-  <td><span class="vf-dash">—</span></td>
-  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-odds">2.30</span><span class="vf-book">Unibet</span></td>
+  <td><span class="vf-edge neg">-8.3%</span></td>
+  <td><span class="vf-ev neg">-0.192</span></td>
 </tr><tr class="">
   <td>Over 1.5 Goals</td>
   <td class="vf-model">77%</td>
   <td class="vf-fair">1.30</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>Over 2.5 Goals</td>
   <td class="vf-model">49%</td>
   <td class="vf-fair">2.05</td>
-  <td><span class="vf-no-b365">no key</span></td>
-  <td><span class="vf-dash">—</span></td>
-  <td><span class="vf-dash">—</span></td>
-</tr><tr class="">
+  <td><span class="vf-odds">1.75</span><span class="vf-book">William Hill</span></td>
+  <td><span class="vf-edge neg">-8.4%</span></td>
+  <td><span class="vf-ev neg">-0.146</span></td>
+</tr><tr class="vf-value">
   <td>Under 2.5 Goals</td>
   <td class="vf-model">51%</td>
   <td class="vf-fair">1.95</td>
-  <td><span class="vf-no-b365">no key</span></td>
-  <td><span class="vf-dash">—</span></td>
-  <td><span class="vf-dash">—</span></td>
+  <td><span class="vf-odds">2.08</span><span class="vf-book">Casumo</span></td>
+  <td><span class="vf-edge pos">+3.1%</span></td>
+  <td><span class="vf-ev pos">+0.066</span></td>
 </tr><tr class="">
   <td>Over 3.5 Goals</td>
   <td class="vf-model">31%</td>
   <td class="vf-fair">3.25</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>BTTS - Yes</td>
   <td class="vf-model">51%</td>
   <td class="vf-fair">1.97</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>BTTS - No</td>
   <td class="vf-model">49%</td>
   <td class="vf-fair">2.03</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>Leeds to Score</td>
   <td class="vf-model">73%</td>
   <td class="vf-fair">1.37</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>Brighton to Score</td>
   <td class="vf-model">78%</td>
   <td class="vf-fair">1.29</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr>

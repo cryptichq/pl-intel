@@ -79,6 +79,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 .vf-ev{font-family:var(--dm);font-size:10px}
 .vf-ev.pos{color:var(--g)}.vf-ev.neg{color:#ff6b7a}
 .vf-no-b365{font-family:var(--dm);font-size:9px;color:var(--mu);background:rgba(255,255,255,.04);padding:2px 8px;border-radius:4px}
+.vf-book{display:block;font-family:var(--dm);font-size:8px;color:var(--mu);margin-top:1px}
 .vf-dash{color:var(--mu);font-family:var(--dm);font-size:10px}
 /* player market table */
 .vf-pos-badge{font-family:var(--dm);font-size:8px;padding:2px 5px;border-radius:3px;text-transform:uppercase}
@@ -332,90 +333,90 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
 <div class="vf-wrap">
   <div class="vf-header">
     <span class="vf-title">Value Finder — bet365 vs Model</span>
-    <span class="vf-no-b365" style="">No bet365 odds — add API key to oddsapi_key.txt (free at the-odds-api.com)</span>
+    <span class="vf-no-b365" style="">No odds — add API key to oddsapi_key.txt (free at the-odds-api.com)</span>
   </div>
   <div class="vf-note">Edge = model probability minus bet365 implied probability. Green rows have 3%+ positive edge. Not financial advice.</div>
   <div class="vf-section-label">Team Markets</div>
 <table class="vf-table">
   <tr>
     <th>Market</th><th>Model %</th><th>Fair Odds</th>
-    <th>bet365</th><th>Edge</th><th>EV / £1</th>
+    <th>Best Odds</th><th>Edge</th><th>EV / £1</th>
   </tr>
   <tr class="">
   <td>Home Win</td>
   <td class="vf-model">43%</td>
   <td class="vf-fair">2.33</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>Draw</td>
   <td class="vf-model">33%</td>
   <td class="vf-fair">3.02</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>Away Win</td>
   <td class="vf-model">24%</td>
   <td class="vf-fair">4.19</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>Over 1.5 Goals</td>
   <td class="vf-model">82%</td>
   <td class="vf-fair">1.23</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>Over 2.5 Goals</td>
   <td class="vf-model">54%</td>
   <td class="vf-fair">1.86</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>Under 2.5 Goals</td>
   <td class="vf-model">46%</td>
   <td class="vf-fair">2.17</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>Over 3.5 Goals</td>
   <td class="vf-model">38%</td>
   <td class="vf-fair">2.67</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>BTTS - Yes</td>
   <td class="vf-model">48%</td>
   <td class="vf-fair">2.10</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>BTTS - No</td>
   <td class="vf-model">52%</td>
   <td class="vf-fair">1.91</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>Chelsea to Score</td>
   <td class="vf-model">75%</td>
   <td class="vf-fair">1.33</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr><tr class="">
   <td>Nott'm Forest to Score</td>
   <td class="vf-model">82%</td>
   <td class="vf-fair">1.22</td>
-  <td><span class="vf-no-b365">no key</span></td>
+  <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
   <td><span class="vf-dash">—</span></td>
 </tr>
@@ -447,8 +448,8 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
   <td><span class="vf-pos-badge pmid">MID</span></td>
   <td>Chelsea</td>
   <td>Shot on Target</td>
-  <td class="vf-model">76%</td>
-  <td class="vf-fair">1.32</td>
+  <td class="vf-model">75%</td>
+  <td class="vf-fair">1.33</td>
 </tr><tr>
   <td class="">Garnacho</td>
   <td><span class="vf-pos-badge pmid">MID</span></td>
@@ -462,14 +463,14 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
   <td>Nott'm Forest</td>
   <td>Shot on Target</td>
   <td class="vf-model">50%</td>
-  <td class="vf-fair">1.98</td>
+  <td class="vf-fair">1.99</td>
 </tr><tr>
   <td class=" vf-highlight">Palmer</td>
   <td><span class="vf-pos-badge pmid">MID</span></td>
   <td>Chelsea</td>
   <td>Anytime Scorer</td>
-  <td class="vf-model">49%</td>
-  <td class="vf-fair">2.06</td>
+  <td class="vf-model">48%</td>
+  <td class="vf-fair">2.08</td>
 </tr><tr>
   <td class="">Igor Jesus</td>
   <td><span class="vf-pos-badge pfwd">FWD</span></td>
@@ -490,7 +491,7 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
   <td>Chelsea</td>
   <td>Anytime Scorer</td>
   <td class="vf-model">34%</td>
-  <td class="vf-fair">2.91</td>
+  <td class="vf-fair">2.93</td>
 </tr><tr>
   <td class="">Hudson-Odoi</td>
   <td><span class="vf-pos-badge pmid">MID</span></td>
@@ -517,15 +518,15 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
   <td><span class="vf-pos-badge pmid">MID</span></td>
   <td>Chelsea</td>
   <td>To Assist</td>
-  <td class="vf-model">22%</td>
-  <td class="vf-fair">4.50</td>
+  <td class="vf-model">23%</td>
+  <td class="vf-fair">4.27</td>
 </tr><tr>
   <td class="">Gibbs-White</td>
   <td><span class="vf-pos-badge pmid">MID</span></td>
   <td>Nott'm Forest</td>
   <td>Anytime Scorer</td>
   <td class="vf-model">19%</td>
-  <td class="vf-fair">5.32</td>
+  <td class="vf-fair">5.35</td>
 </tr><tr>
   <td class="">Igor Jesus</td>
   <td><span class="vf-pos-badge pfwd">FWD</span></td>
@@ -539,7 +540,7 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
   <td>Chelsea</td>
   <td>To Assist</td>
   <td class="vf-model">14%</td>
-  <td class="vf-fair">7.41</td>
+  <td class="vf-fair">7.19</td>
 </tr><tr>
   <td class="">Hudson-Odoi</td>
   <td><span class="vf-pos-badge pmid">MID</span></td>
@@ -560,14 +561,14 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
   <td>Chelsea</td>
   <td>To Assist</td>
   <td class="vf-model">8%</td>
-  <td class="vf-fair">12.20</td>
+  <td class="vf-fair">12.35</td>
 </tr><tr>
   <td class="">Gibbs-White</td>
   <td><span class="vf-pos-badge pmid">MID</span></td>
   <td>Nott'm Forest</td>
   <td>To Assist</td>
-  <td class="vf-model">5%</td>
-  <td class="vf-fair">20.41</td>
+  <td class="vf-model">6%</td>
+  <td class="vf-fair">16.67</td>
 </tr><tr>
   <td class="">Igor Jesus</td>
   <td><span class="vf-pos-badge pfwd">FWD</span></td>
@@ -630,14 +631,14 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
   <td>Chelsea</td>
   <td>Score 2+ (Brace)</td>
   <td class="vf-model">14%</td>
-  <td class="vf-fair">6.94</td>
+  <td class="vf-fair">7.14</td>
 </tr><tr>
   <td class="">João Pedro</td>
   <td><span class="vf-pos-badge pfwd">FWD</span></td>
   <td>Chelsea</td>
   <td>Score 2+ (Brace)</td>
   <td class="vf-model">13%</td>
-  <td class="vf-fair">7.94</td>
+  <td class="vf-fair">7.87</td>
 </tr><tr>
   <td class="">João Pedro</td>
   <td><span class="vf-pos-badge pfwd">FWD</span></td>
@@ -658,7 +659,7 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
   <td>Chelsea</td>
   <td>Score 2+ (Brace)</td>
   <td class="vf-model">7%</td>
-  <td class="vf-fair">14.71</td>
+  <td class="vf-fair">15.15</td>
 </tr><tr>
   <td class="">Garnacho</td>
   <td><span class="vf-pos-badge pmid">MID</span></td>
@@ -750,13 +751,13 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
       <div class="mp-pname">Palmer</div>
     </div>
   </div>
-  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sy">9</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val ">2</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.55</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.12</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">1.2</span></div></div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sy">9</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val ">2</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.54</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.12</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">1.5</span></div></div>
   <div class="mp-threat">
-    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.81</span></div>
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.80</span></div>
     <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:100%;background:var(--g)"></div></div>
   </div><details class="mp-bets">
     <summary>Bet Markets</summary>
-    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob sy">49%</span><span class="mp-bet-odds ">2.06</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">14%</span><span class="mp-bet-odds ">7.41</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">89%</span><span class="mp-bet-odds hot">1.12</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">14%</span><span class="mp-bet-odds ">6.94</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob sy">48%</span><span class="mp-bet-odds ">2.08</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">14%</span><span class="mp-bet-odds ">7.19</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">89%</span><span class="mp-bet-odds hot">1.12</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">14%</span><span class="mp-bet-odds ">7.14</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
   </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
@@ -769,13 +770,13 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
       <div class="mp-pname">João Pedro</div>
     </div>
   </div>
-  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sg">14</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val sg">9</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.51</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.07</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">0.8</span></div></div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sg">15</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val sg">9</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.51</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.07</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">2.0</span></div></div>
   <div class="mp-threat">
     <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.70</span></div>
     <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:100%;background:var(--g)"></div></div>
   </div><details class="mp-bets">
     <summary>Bet Markets</summary>
-    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob sy">46%</span><span class="mp-bet-odds ">2.18</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">8%</span><span class="mp-bet-odds ">12.20</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">87%</span><span class="mp-bet-odds hot">1.15</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">13%</span><span class="mp-bet-odds ">7.94</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">10%</span><span class="mp-bet-odds ">10.00</span></div></div>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob sy">46%</span><span class="mp-bet-odds ">2.18</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">8%</span><span class="mp-bet-odds ">12.35</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">87%</span><span class="mp-bet-odds hot">1.15</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">13%</span><span class="mp-bet-odds ">7.87</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">10%</span><span class="mp-bet-odds ">10.00</span></div></div>
   </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
@@ -788,13 +789,13 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
       <div class="mp-pname">Enzo</div>
     </div>
   </div>
-  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sy">8</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val sy">4</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.35</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val sy">0.21</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">1.2</span></div></div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sy">8</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val sy">4</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.34</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val sy">0.22</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">1.5</span></div></div>
   <div class="mp-threat">
-    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.67</span></div>
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.68</span></div>
     <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:100%;background:var(--g)"></div></div>
   </div><details class="mp-bets">
     <summary>Bet Markets</summary>
-    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">34%</span><span class="mp-bet-odds ">2.91</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">22%</span><span class="mp-bet-odds ">4.50</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">76%</span><span class="mp-bet-odds hot">1.32</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">7%</span><span class="mp-bet-odds ">14.71</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">34%</span><span class="mp-bet-odds ">2.93</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">23%</span><span class="mp-bet-odds ">4.27</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sg">75%</span><span class="mp-bet-odds hot">1.33</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">7%</span><span class="mp-bet-odds ">15.15</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
   </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
@@ -826,7 +827,7 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
       <div class="mp-pname">Sánchez</div>
     </div>
   </div>
-  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Saves (season)</span><span class="mp-stat-val ">91</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Clean Sheets</span><span class="mp-stat-val ">9</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form</span><span class="mp-stat-val ">1.5</span></div></div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Saves (season)</span><span class="mp-stat-val ">91</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Clean Sheets</span><span class="mp-stat-val ">9</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form</span><span class="mp-stat-val ">1.8</span></div></div>
   <details class="mp-bets">
     <summary>Bet Markets</summary>
     <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Clean Sheet</span><span class="mp-bet-prob ">27%</span><span class="mp-bet-odds ">3.70</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Save 3+ Shots</span><span class="mp-bet-prob sy">52%</span><span class="mp-bet-odds hot">1.92</span></div></div>
@@ -865,7 +866,7 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
       <div class="mp-pname">Sels</div>
     </div>
   </div>
-  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Saves (season)</span><span class="mp-stat-val ">81</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Clean Sheets</span><span class="mp-stat-val ">7</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form</span><span class="mp-stat-val sy">4.8</span></div></div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Saves (season)</span><span class="mp-stat-val ">82</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Clean Sheets</span><span class="mp-stat-val ">7</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form</span><span class="mp-stat-val sy">5.0</span></div></div>
   <details class="mp-bets">
     <summary>Bet Markets</summary>
     <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Clean Sheet</span><span class="mp-bet-prob ">27%</span><span class="mp-bet-odds ">3.70</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Save 3+ Shots</span><span class="mp-bet-prob sy">52%</span><span class="mp-bet-odds hot">1.92</span></div></div>
@@ -881,13 +882,13 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
       <div class="mp-pname">Gibbs-White</div>
     </div>
   </div>
-  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sg">13</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val ">3</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.29</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.07</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val sg">8.8</span></div></div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val sg">13</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val sy">4</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val sg">0.29</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.09</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val sg">9.8</span></div></div>
   <div class="mp-threat">
-    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.26</span></div>
-    <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:43%;background:var(--go)"></div></div>
+    <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.27</span></div>
+    <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:44%;background:var(--go)"></div></div>
   </div><details class="mp-bets">
     <summary>Bet Markets</summary>
-    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">19%</span><span class="mp-bet-odds ">5.32</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">5%</span><span class="mp-bet-odds ">20.41</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sy">50%</span><span class="mp-bet-odds hot">1.98</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">2%</span><span class="mp-bet-odds ">52.63</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">19%</span><span class="mp-bet-odds ">5.35</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">6%</span><span class="mp-bet-odds ">16.67</span></div><div class="mp-bet-row hot"><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob sy">50%</span><span class="mp-bet-odds hot">1.99</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">2%</span><span class="mp-bet-odds ">52.63</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
   </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
@@ -938,13 +939,13 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
       <div class="mp-pname">Hutchinson</div>
     </div>
   </div>
-  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val ">1</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val sy">6</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val ">0.12</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val sy">0.20</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">2.2</span></div></div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val ">1</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val sy">6</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val ">0.12</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val sy">0.19</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">2.5</span></div></div>
   <div class="mp-threat">
     <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.22</span></div>
     <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:36%;background:var(--go)"></div></div>
   </div><details class="mp-bets">
     <summary>Bet Markets</summary>
-    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">8%</span><span class="mp-bet-odds ">12.66</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">13%</span><span class="mp-bet-odds ">7.69</span></div><div class="mp-bet-row "><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob ">24%</span><span class="mp-bet-odds ">4.13</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">0%</span><span class="mp-bet-odds ">99.00</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">8%</span><span class="mp-bet-odds ">12.66</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">13%</span><span class="mp-bet-odds ">7.81</span></div><div class="mp-bet-row "><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob ">24%</span><span class="mp-bet-odds ">4.15</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">0%</span><span class="mp-bet-odds ">99.00</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
   </details>
 </div><div class="mp-player">
   <div class="mp-player-top">
@@ -957,13 +958,13 @@ footer{text-align:center;color:var(--mu);font-family:var(--dm);font-size:9px;let
       <div class="mp-pname">Anderson</div>
     </div>
   </div>
-  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val ">3</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val ">3</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val ">0.08</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.11</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val ">3.8</span></div></div>
+  <div class="mp-stats-list"><div class="mp-stat-row"><span class="mp-stat-lbl">Goals</span><span class="mp-stat-val ">3</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Assists</span><span class="mp-stat-val ">3</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Goals / 90</span><span class="mp-stat-val ">0.08</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">Exp. Assists / 90</span><span class="mp-stat-val ">0.11</span></div><div class="mp-stat-row"><span class="mp-stat-lbl">FPL Form (last 4 GW)</span><span class="mp-stat-val sy">4.0</span></div></div>
   <div class="mp-threat">
     <div class="mp-threat-label"><span>Match threat (opp-adjusted xGI)</span><span>0.14</span></div>
     <div class="mp-threat-bar"><div class="mp-threat-fill" style="width:22%;background:var(--b)"></div></div>
   </div><details class="mp-bets">
     <summary>Bet Markets</summary>
-    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">6%</span><span class="mp-bet-odds ">17.54</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">8%</span><span class="mp-bet-odds ">13.33</span></div><div class="mp-bet-row "><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob ">18%</span><span class="mp-bet-odds ">5.56</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">0%</span><span class="mp-bet-odds ">99.00</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
+    <div class="mp-bet-rows"><div class="mp-bet-row "><span class="mp-bet-name">Anytime Scorer</span><span class="mp-bet-prob ">6%</span><span class="mp-bet-odds ">17.54</span></div><div class="mp-bet-row "><span class="mp-bet-name">To Assist</span><span class="mp-bet-prob ">7%</span><span class="mp-bet-odds ">13.51</span></div><div class="mp-bet-row "><span class="mp-bet-name">Shot on Target</span><span class="mp-bet-prob ">18%</span><span class="mp-bet-odds ">5.62</span></div><div class="mp-bet-row "><span class="mp-bet-name">Score 2+ (Brace)</span><span class="mp-bet-prob ">0%</span><span class="mp-bet-odds ">99.00</span></div><div class="mp-bet-row "><span class="mp-bet-name">Yellow Card</span><span class="mp-bet-prob ">15%</span><span class="mp-bet-odds ">6.67</span></div></div>
   </details>
 </div>
   </div>
